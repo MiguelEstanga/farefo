@@ -1,0 +1,14 @@
+<svg id="TRansferencia" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="77" height="54.565" viewBox="0 0 77 54.565">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rectángulo_1426" data-name="Rectángulo 1426" width="37.544" height="36.381" fill="" stroke="#b1b6c8" stroke-width="2.5"/>
+    </clipPath>
+  </defs>
+  <text id="TRANSFERENCIA-2" data-name="TRANSFERENCIA" transform="translate(0 39.565)" fill="" font-size="10" font-family="Kanit-Medium, Kanit" font-weight="500"><tspan x="0" y="11">TRANSFERENCIA</tspan></text>
+  <g id="Grupo_1297" data-name="Grupo 1297" transform="translate(21.229 0)">
+    <g id="Grupo_1296" data-name="Grupo 1296" transform="translate(0 0)" clip-path="url(#clip-path)">
+      <path id="Trazado_1789" data-name="Trazado 1789" d="M18.92,12.867h8.052v4.546l8.081-8.081L26.973,1.25V5.8H10.529S1.25,4.852,1.25,18.657c0,0,2.722-5.79,8.832-5.79Z" transform="translate(-0.466 -0.466)" fill="none" stroke="" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"/>
+      <path id="Trazado_1790" data-name="Trazado 1790" d="M15.833,34.8H12.8V30.258L4.715,38.339,12.8,46.421V41.875H29.24s9.279.944,9.279-12.861c0,0-2.722,5.79-8.832,5.79Z" transform="translate(-1.759 -10.824)" fill="none" stroke="" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"/>
+    </g>
+  </g>
+</svg>
