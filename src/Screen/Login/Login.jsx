@@ -5,6 +5,7 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
+  NativeModules, Platform 
 } from "react-native";
 import InputText from "../../component/InputText";
 
@@ -17,8 +18,9 @@ import Loaded from "../../component/Loaded";
 import { ModalAlert } from "../../component/Modal";
 import { TarjetaContext } from "../../context/Tarjeta";
 import { URL, endpoint } from "../../Helpers/Api";
-import HelperTarjeta from "../../Helpers/HelperTarjeta";
-import LoginController from "./LoginController";
+import { AES, TripleDES, lib, mode, CipherOption, Cipher } from 'crypto-js';
+import CryptoJS from 'react-native-crypto-js';
+
 
 function Login() {
   const navegacion = useNavigation();
@@ -26,60 +28,80 @@ function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
   const [cth, setCth] = useState(false);
-  const { setCredenciales } = useContext(LoginContext);
-  const { setTarjeta } = useContext(TarjetaContext);
+  const {setCredenciales } = useContext(LoginContext);
+  const {setTarjeta } = useContext(TarjetaContext);
   const [loaded, setLoaded] = useState(false);
   const [textError, setTextError] = useState("");
-  
-  const [modal , setModal] = useState(false)
-  useEffect(() => {}, [error, loaded]);
+  const [modal, setModal] = useState(false);
 
-  const tarjetaInfo = (usuario)=> {
-    const headers =  {
+ 
+
+
+  useEffect(() => {
+    
+    const key = CryptoJS.enc.Utf8.parse('3rd6sl2u325b13f8ioh6tn11');
+    const iv = CryptoJS.enc.Utf8.parse('86878555');
+
+    const ciphertext = "pX9FukCaDDF5eYngYJNaXA==";
+    
+    const decrypted = TripleDES.decrypt(ciphertext, key, {
+      iv,
+      mode: CryptoJS.mode.CBC,
+      padding: CryptoJS.pad.Pkcs7,
+    });
+    
+    const plaintext = decrypted.toString(CryptoJS.enc.Utf8);
+    
+    console.log('NIP desencriptado:', plaintext);
+    console.log(ciphertext)
+     
+  }, [error, loaded]);
+
+  const tarjetaInfo = (usuario) => {
+    const headers = {
       "Content-Type": "application/json",
-      "Credenciales": "R2VuZXJpY1VzZXI6RG51LjEyMw==",
-      };
-  
-   
-      axios
-        .post(`${URL.UrlBase}${endpoint.OBTENER_DATOS_DE_LA_TAJETA}`, 
+      Credenciales: "R2VuZXJpY1VzZXI6RG51LjEyMw==",
+    };
+
+    axios
+      .post(
+        `${URL.UrlBase}${endpoint.OBTENER_DATOS_DE_LA_TAJETA}`,
         {
           IDSolicitud: "",
           telefono: usuario.trim(),
         },
         {
-          headers
-        })
-        .then((res) => {
-          setTarjeta({...res.data})
-          console.log(res.data)
-          navegacion.navigate("HOMES")
-        })
-        .catch((exection ) => {
-          setError(exection)
-          console.log(exection)
-        })
-       
-   
-  
-  }
+          headers,
+        }
+      )
+      .then((res) => {
+        setTarjeta({ ...res.data });
+        console.log(res.data);
+        navegacion.navigate("HOMES");
+      })
+      .catch((exection) => {
+        setError(exection);
+        console.log(exection);
+      });
+  };
   const login = async () => {
-    if(usuario.length < 10){
-        setModal(true)
-        setTextError("La longitud del teléfono debe ser de 10 Credenciales incorrectas")
-        return 0;
+    if (usuario.length < 10) {
+      setModal(true);
+      setTextError(
+        "EL número telefónico debe contener  10 dígitos."
+      );
+      return 0;
     }
-
-
 
     if (password.length > 0 && usuario.length > 0) {
       setLoaded(true);
       const headers = {
         "Content-Type": "application/json",
-         Credenciales: "R2VuZXJpY1VzZXI6RG51LjEyMw==",
+        Credenciales: "R2VuZXJpY1VzZXI6RG51LjEyMw==",
       };
       try {
-        const respuesta = await axios.post(`${URL.UrlBase}${endpoint.LOGIN}`,
+        const respuesta = await axios.post(
+          `${URL.UrlBase}${endpoint.LOGIN}`,
           {
             NombreUsuario: usuario.trim(),
             Password: password.trim(),
@@ -87,67 +109,45 @@ function Login() {
           {
             headers,
           }
-        ) 
-       
-      
-          console.log(respuesta.data)
-          if(respuesta.data.CodRespuesta === "0000")
-          {
-            setCredenciales({ ...respuesta.data, password: password.trim() });
-           
+        );
 
-            
-             //aqui cahceo datos de la tarjeta 
-             tarjetaInfo(usuario)
-              ///navegacion.navigate("HOMES");
-          
-          
-          }else{
-            setModal(true)
-            setTextError('Favor de revisar la información. Si es la primera vez que utilizas tu aplicación, regístrate desde el botón "Registrarme" ')
-          }
-          
-        
+        console.log(respuesta.data);
+        if (respuesta.data.CodRespuesta === "0000") {
+          setCredenciales({ ...respuesta.data, password: password.trim() });
 
-      } 
-      catch (error) {
-
+          //aqui cahceo datos de la tarjeta
+          tarjetaInfo(usuario);
+          ///navegacion.navigate("HOMES");
+        } else {
+          setModal(true);
+          setTextError(
+            'Favor de revisar la información. Si es la primera vez que utilizas tu aplicación, regístrate desde el botón "Registrarme" '
+          );
+        }
+      } catch (error) {
         setCth(true);
-        setTextError("error del servidor al momento de obtener datos hacer login (" + error + ")");
-
+        setTextError(
+          "error del servidor al momento de obtener datos hacer login (" +
+            error +
+            ")"
+        );
+      } finally {
+        setLoaded(false);
       }
-      finally{
-        setLoaded(false)
-      }
-    
-
-        
     } else {
       setTextError("Los campos no pueden estar vacíos");
       setModal(true);
     }
   };
 
-
-
-  
   return (
     <ScrollView>
       {loaded == true ? <Loaded /> : ""}
 
-
-      <ModalAlert
-        modal={modal}
-        setmodal={setModal}
-        mensage={textError}
-      />
+      <ModalAlert modal={modal} setmodal={setModal} mensage={textError} />
 
       {cth == true ? (
-        <ModalAlert
-          modal={cth}
-          setmodal={setCth}
-          mensage={textError}
-        />
+        <ModalAlert modal={cth} setmodal={setCth} mensage={textError} />
       ) : (
         ""
       )}
@@ -179,11 +179,9 @@ function Login() {
             <View style={style.contenformulario}>
               <View
                 style={{
-                  
-                  width:"100%",
-                  alignItems:"center",
-                  justifyContent:"center",
-
+                  width: "100%",
+                  alignItems: "center",
+                  justifyContent: "center",
                 }}
               >
                 <View style={style.logo}>
@@ -191,19 +189,19 @@ function Login() {
                     style={{
                       width: "100%",
                       height: "100%",
-                      resizeMode:"stretch"
+                      resizeMode: "stretch",
                     }}
                     source={require("../../../assets/png/login_farefo.png")}
                   />
                 </View>
               </View>
-             
+
               <View style={style.formulario}>
                 <InputText
                   label={"Teléfono"}
                   subtitulo={true}
                   textSubtitulo={
-                    "Captura el teléfono con el que se dio de alta tu cuenta test"
+                    "Captura el teléfono con el que se dio de alta tu cuenta "
                   }
                   placeholder={""}
                   password={false}
@@ -228,8 +226,7 @@ function Login() {
                       flexDirection: "row",
                       alignItems: "center",
                       gap: 10,
-                      padding:10,
-                      
+                      padding: 10,
                     }}
                   >
                     <View>
@@ -299,7 +296,6 @@ const style = StyleSheet.create({
     marginTop: 30,
   },
   container: {
-   
     width: "100%",
     height: "100%",
     justifyContent: "center",
@@ -311,19 +307,15 @@ const style = StyleSheet.create({
     height: "100%",
   },
   contenformulario: {
-   
     height: 500,
     width: "95%",
-    justifyContent:"center",
+    justifyContent: "center",
   },
   logo: {
-    
     width: "87%",
     height: 73,
-   
-    
   },
-  formulario: { 
+  formulario: {
     marginTop: 20,
     height: 300,
     alignItems: "center",

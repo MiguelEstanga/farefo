@@ -2,13 +2,14 @@
   "expo": {
     "name": "FAREFO",
     "slug": "FAREFO",
-    "version": "1.0.0",
+    "version": "1.0.2",
     "orientation": "portrait",
-    "icon": "./assets/logo2.png",
+    "icon": "./assets/logo.png",
+    "resizeMode": "center",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/logo2.png",
-      "resizeMode": "contain",
+      "image": "./assets/splah.png",
+      "resizeMode": "center",
       "backgroundColor": "#152559"
     },
     "assetBundlePatterns": [
@@ -19,12 +20,20 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/logo2.png",
-        "backgroundColor": "#152559"
-      }
+        "foregroundImage": "./assets/logo.png",
+        "backgroundColor": "#152559",
+        "resizeMode": "center"
+      },
+      "package": "com.miguel1212.FAREFO"
     },
     "web": {
-      "favicon": "./assets/logo2.png"
+      "favicon": "./assets/logo.png",
+      "resizeMode": "center"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "88711b5f-8338-4ea9-a4ff-c2a7d4d6d7e7"
+      }
     }
   }
 }

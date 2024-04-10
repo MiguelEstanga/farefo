@@ -30,11 +30,9 @@ function Telefono() {
   const registro = ()=>{
     setTelefonoRegistro(telefono)
     setTelefonoC(telefono)
-
- 
     if(telefono.length < 10 || telefono.length > 10 || telefono.length === 0  ){
       setModal(true)
-      setError("La longitud del numero deber de ser 10 ")
+      setError("EL número telefónico debe contener  10 dígitos.")
     }else{
       setLoaded(true)
           

@@ -45,7 +45,7 @@ function ConfirmacionNip() {
         .then((res) => {
             if(res.status == 200)
             {
-           
+              console.log(res.data)
               setNip({...res.data})
               navegacion.navigate('NIP')
             }

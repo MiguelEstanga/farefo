@@ -11,10 +11,10 @@ import { ModalAlert } from "../../component/Modal";
 import Loaded from "../../component/Loaded";
 function Telefono() {
 
-  const navegacion =  useNavigation()
-  const  { setCode , setTelefonoC}  =  useContext(RegistroContext)
-  const [telefono , setTelefono] = useState('')
-  const [loaded , setLoaded] = useState(false)
+    const navegacion =  useNavigation()
+    const { setCode , setTelefonoC}  =  useContext(RegistroContext)
+    const [telefono , setTelefono] = useState('')
+    const [loaded , setLoaded] = useState(false)
     const [modal , setModal] = useState(false)
     const [campo , setCampo] = useState(false)
     const [error , setError] = useState('')
@@ -26,10 +26,7 @@ function Telefono() {
   };
 
   const handle_navegacion = ()=>{
-  
     navegacion.navigate("Registro")
-   
-    
   }
 
   const registro = ()=>{

@@ -48,27 +48,8 @@ export default class SwiperComponent extends Component {
             source={require("../../assets/png/collage2.png")}
           />
         </View>
-        <View style={styles.slide2}>
-          <Image
-            style={{
-              resizeMode: "cover",
-              width: "95%",
-              height: "95%",
-            }}
-            source={require("../../assets/png/collage1.png")}
-          />
-        </View>
-        <View style={styles.slide3}>
-          <Image
-            style={{
-              resizeMode: "cover",
-              width: "95%",
-              height: "95%",
-             
-            }}
-            source={require("../../assets/png/collage3.png")}
-          />
-        </View>
+        
+    
       </Swiper>
     );
   }

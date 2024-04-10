@@ -19,6 +19,7 @@ function MasOpciones() {
 
        // if(option === "Reporte") return navegacion.navigate("Reporte")
     } , [option])
+    
     return (  
 
         <Tab.Navigator>
@@ -51,7 +52,6 @@ function MasOpciones() {
                         headerTitleAlign:"center",
                         headerTintColor:"#152559",
                         title:'Reporte por Robo o extravío',
-                       
                     }}
                 
             />

@@ -26,7 +26,6 @@ function InputText({
     <View
       style={{
         width: 300,
-
         height: 40,
       }}
     >
@@ -35,6 +34,7 @@ function InputText({
           color: "#152559",
           fontSize: 16,
           fontWeight: "600",
+          marginBottom:10
         }}
       >
         {label}

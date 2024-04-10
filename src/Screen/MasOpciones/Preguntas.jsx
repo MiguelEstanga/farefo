@@ -1,9 +1,12 @@
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet, Image, ScrollView } from "react-native";
 
 import { TouchableOpacity } from "react-native-gesture-handler";
-import {  useState } from "react";
+import {  useEffect, useState } from "react";
 
 import { preguntas } from "./preguntasData";
+import axios from "axios";
+import Loaded from "../../component/Loaded";
+import { ModalAlert } from "../../component/Modal";
 const Accordion = ({ question, answer }) => {
     const [expanded, setExpanded] = useState(false);
 
@@ -61,11 +64,46 @@ const Accordion = ({ question, answer }) => {
 
 export function Preguntas() {
     const [pgf, stePgf] = useState(null)
-
-   
+    const [preguntas_farefo , setPreguntas] = useState([])
+    const [loaded , setLoaded ] = useState(false)
+    const [modal , setModal] = useState(false)
+    const [msm , setMsm] =useState("")
+    useEffect(() => {
+        setLoaded(true)
+        const headers = {
+            "Content-Type": "application/json",
+             Credenciales: "R2VuZXJpY1VzZXI6RG51LjEyMw==",
+          };
+        axios.post('https://api1-dev.parabilium.com/wsAppConnect_FR_SB/api/PreguntasFrecuentes',
+            {
+                "IDTema": "1" ,//1 Generales y 2 Admistración de la tarjeta
+                Credenciales: "R2VuZXJpY1VzZXI6RG51LjEyMw==",
+            },
+            {
+                headers
+            }
+        )
+        .then(res => {
+            setPreguntas(res.data?.Preguntas)
+        })
+        .catch(error => {
+            setMsm(error)
+        })
+        .finally(res => {
+            setLoaded(false)
+        })
+    }, [])
     return (
         <>
-
+        {loaded == true  ? (<Loaded/>) : ""}  
+            <ModalAlert
+                modal={modal}
+                setmodal={setModal}
+                mensage={msm}
+            />
+          <ScrollView style={{
+            
+          }}>
             <View style={style.container} >
                 <View style={style.contenleyenda}  >
                     <Text style={style.leyenda}  >
@@ -76,18 +114,21 @@ export function Preguntas() {
                 </View>
                 <View>
                     {
-                        preguntas.map((res , index) => (
+                        preguntas_farefo.length > 0 ?(
+                        preguntas_farefo?.map((res , index) => (
 
                             <Accordion
                                 key={index}
-                                question={res.Pregunta}
-                                answer={res.Respuesta}
+                                question={res?.Pregunta ?? "Cargando ..."}
+                                answer={res?.Respuesta ?? "Cargando ..."}
                             />
                         ))
+                        ):(<Text> Cargando ... </Text>)
                     }
 
                 </View>
             </View>
+            </ScrollView>
         </>
 
     )

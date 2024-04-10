@@ -15,7 +15,7 @@ const handle_navegacion = ()=>{
 
       <View  style={{ height:300 , alignItems:"center" , marginTop:30}} >
         <View style={style.input}>
-          <InputText label={"cable"} />
+          <InputText label={"Clabe"} />
         </View>
         <View style={style.input}>
           <InputText label={"Nombre del contacto"} />

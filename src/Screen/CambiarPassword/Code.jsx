@@ -142,8 +142,13 @@ const registro = () => {
   const formatTime = (totalSeconds) => {
     const minutes = Math.floor(totalSeconds / 60);
     const seconds = totalSeconds % 60;
+    if(seconds < 10)
+    {
+      return `${minutes}:0${seconds} `;
 
+    }
     return `${minutes}:${seconds} `;
+
   };
 
   return (
@@ -224,7 +229,7 @@ const registro = () => {
 
       </View>
       <View style={style.reenviar}>
-        <Text style={{ fontSize: 14, fontWeight: "900", marginBottom: 10 }}>
+        <Text style={{ fontSize: 14, fontWeight: "900", marginBottom: 10, marginTop:15 }}>
           ¿No te llegó el SMS?
         </Text>
         <Text style={{ fontSize: 12, fontWeight: "300", width: 310 }}>

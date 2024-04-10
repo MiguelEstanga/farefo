@@ -79,17 +79,17 @@ function DatosUsuario() {
             <Table
                 color={'#FFFFFF'}
                 titulo={'Nombre:'}
-                info={`${data.Nombre}  ${data.ApellidoPaterno}  ${data.ApellidoMaternocle}` }
+                info={`${data?.Nombre}  ${data?.ApellidoPaterno}  ${data?.ApellidoMaterno}` }
             />
              <Table
                 color={'#E5E7ED'}
                 titulo={'Teléfono:'}
-                info={data.Telefono}
+                info={data?.Telefono}
             />
              <Table
                 color={'#FFFFFF'}
                 titulo={'Correo Electrónico:'}
-                info={data.Correo}
+                info={data?.Correo}
             />
       </View>
       <View style={{justifyContent:"center" , alignItems:"center" , marginTop:50}} >

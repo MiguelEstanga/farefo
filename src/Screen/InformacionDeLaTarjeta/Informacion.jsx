@@ -22,6 +22,8 @@ import { ModalAlert } from "../../component/Modal";
 import { AntDesign } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import { MasContext } from "../../context/Mas";
+
+
 function Informacion() {
   const navegacion = useNavigation();
   const [activar, setActivar] = useState(false);
@@ -122,7 +124,7 @@ function Informacion() {
       return handleCvvTime(); // Llama a handleCvvTime y limpia el temporizador cuando cvv cambia
     }
     if(copiar == true) return intervalCopiarText()
-  }, [cvv,cvvTime]);
+  }, [cvv,cvvTime , copiar]);
   
   useEffect(() => {
     console.log(cvvTime);
