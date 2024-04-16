@@ -27,7 +27,7 @@ export default function Movimientos({nombre_movimiento , FechaMovimiento , Impor
                      {nombre_movimiento}
                 </Text>
                 <Text style={{color:"#616161" , fontSize:16}}>
-                      {FechaMovimiento}
+                      {new Date(FechaMovimiento).toLocaleDateString("es-ES")}
                 </Text>
             </View>
             <View style={style.data}>

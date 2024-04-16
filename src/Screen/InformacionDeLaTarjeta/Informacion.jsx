@@ -22,6 +22,7 @@ import { ModalAlert } from "../../component/Modal";
 import { AntDesign } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import { MasContext } from "../../context/Mas";
+import { StatusContext } from "../../context/StatusContex";
 
 
 function Informacion() {
@@ -30,7 +31,8 @@ function Informacion() {
   const [confimacion, setConfirmacion] = useState(false);
   const { tarjeta } = useContext(TarjetaContext);
   const { credenciales } = useContext(LoginContext);
-  const [status , setStatus] = useState(false)
+  const { state, setState} = useContext(StatusContext)
+  const [status , setStatus] = useState(state)
   const [error, setError] = useState(false);
   const [text , setText] = useState('')
   const [loaded, setLoaded] = useState(false);
@@ -40,6 +42,7 @@ function Informacion() {
   const [copiar ,setCopiar] = useState(false)
   const [run , setRun] = useState(true)
   const {setOption} = useContext(MasContext)
+  // #region TEST
   const headers = {
     "Content-Type": "application/json",
     "Authorization": `Bearer ${credenciales.Token}`,
@@ -50,6 +53,9 @@ function Informacion() {
       mode == true
         ? "https://api1-dev.parabilium.com/wsAppConnect_FR_SB/api/DesbloquearTarjeta"
         : "https://api1-dev.parabilium.com/wsAppConnect_FR_SB/api/BloquearTarjeta";
+      mode == true
+        ? setState(false)
+        : setState(true);
     setLoaded(true);
 
     axios
@@ -71,33 +77,7 @@ function Informacion() {
       .finally((res) => setLoaded(false));
   };
 
-  const status_tarjeta = () => {
-   
-    
-    
-    axios
-      .post(
-        "https://api1-dev.parabilium.com/wsAppConnect_FR_SB/api/ValidarTarjeta/",
-        {
-          "IDSolicitud": "",
-          "Tarjeta": tarjeta.Tarjeta
-        },
-        {
-          headers
-        }
-       
-      )
-      .then((res) => {
-        if(res.status == 200){
-        
-            res.data.DescripcionStatus == "ACTIVA" ? setStatus(true) : setStatus(false) 
-        }
-    
-      })
-      .catch(error => setText("error al conectar con el servodor ("+error+")") )
-      
-  };
-
+ 
  
   const intervalCopiarText = () => {
     setInterval(()=> {
@@ -115,20 +95,16 @@ function Informacion() {
   };
   
   useEffect(() => {
-    console.log("valor actual")
-    console.log(cvv)
-    status_tarjeta();
+   
     if (cvv != null) { 
-      console.log("valor despues del time")
-      console.log(cvv)
       return handleCvvTime(); // Llama a handleCvvTime y limpia el temporizador cuando cvv cambia
     }
     if(copiar == true) return intervalCopiarText()
-  }, [cvv,cvvTime , copiar]);
+  }, [cvv,cvvTime , copiar , state]);
   
   useEffect(() => {
-    console.log(cvvTime);
-  }, [cvv, cvvTime , copiar. status]);
+   
+  }, [cvv, cvvTime , copiar. status ]);
   
   
   return (
@@ -284,13 +260,13 @@ function Informacion() {
                 alignItems: "center",
               }}
             >
-              {status == true ? (
+              {state == true ? (
                 <TouchableOpacity
                 style={style.bloqueo}
                   onPress={() => {
                     
                     boqueo_y_desbloqueo(false);
-                    setStatus(false);
+                    setState(false);
                   }}
                 >
                   <Image
@@ -305,7 +281,7 @@ function Informacion() {
                   style={style.bloqueo}
                   onPress={() => {
                     boqueo_y_desbloqueo(true);
-                    setStatus(true);
+                    setState(true);
                   }}
                 >
                   <Image source={require("../../../assets/png/boqueada.png")} />

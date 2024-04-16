@@ -23,7 +23,9 @@ export default function  HeaderTitulo({titulo}){
             style={{
                 color:"#152559",
                 fontSize:20,
-                fontWeight:"500"
+                fontWeight:"500",
+               
+                marginLeft:30
             }}
         >
             {titulo}

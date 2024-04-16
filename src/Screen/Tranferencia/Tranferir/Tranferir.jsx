@@ -3,25 +3,45 @@ import Titulo from "../../../component/Titulo";
 import InputText from "../../../component/InputText";
 import Btn from "../../../component/Btn";
 import { useNavigation } from "@react-navigation/native";
+import { useState } from "react";
 
-export default function Tranferir() {
-const navegacion = useNavigation()
-const handle_navegacion = ()=>{
-    navegacion.navigate("Monto")
-}
+export default function Tranferir() 
+{
+    const [clabe , setClabe] = useState("")
+    const [alias , setAlias] = useState("")
+    const [nombre , setNombre] = useState("")
+    const navegacion = useNavigation()
+    const handle_navegacion = ()=>{
+        navegacion.navigate("Monto")
+    }
   return (
     <View style={style.container}>
       <Titulo titulo={"¿A quien deseas transferir?"} />
 
       <View  style={{ height:300 , alignItems:"center" , marginTop:30}} >
         <View style={style.input}>
-          <InputText label={"Clabe"} />
+          <InputText 
+            label={"CLABE"} 
+            eventoText={setClabe}
+            password={false}
+            initPassword={false}
+          />
         </View>
         <View style={style.input}>
-          <InputText label={"Nombre del contacto"} />
+          <InputText 
+            label={"Nombre del contacto"} 
+            eventoText={setNombre}
+            password={false}
+            initPassword={false}
+          />
         </View>
         <View style={style.input}>
-          <InputText label={"Alias"} />
+          <InputText 
+            label={"Alias"} 
+            eventoText={setAlias}
+            password={false}
+            initPassword={false}
+          />
         </View>
       </View>
       <View style={{justifyContent:"center" , alignItems:"center"}} >

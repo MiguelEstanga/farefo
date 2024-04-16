@@ -9,7 +9,9 @@ import { ModalAlert } from "../../component/Modal";
 import axios from "axios";
 import { TarjetaContext } from "../../context/Tarjeta";
 import Loaded from "../../component/Loaded";
+import { StatusContext } from "../../context/StatusContex";
 function ConfimacionActivacion() {
+    const {setStatus}  = useContext(StatusContext)
     const [password , setPassword] = useState("");
     const {credenciales} = useContext(LoginContext);
     const [modal , setModal ] = useState(false);
@@ -41,6 +43,7 @@ function ConfimacionActivacion() {
           {
            
             if(res.data.CodRespuesta === "0000"){
+              setStatus(true)
               navegacion.navigate('ActivacionExitosa')
             }
             

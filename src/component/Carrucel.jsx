@@ -45,7 +45,7 @@ export default class SwiperComponent extends Component {
               width: "95%",
               height: "95%",
             }}
-            source={require("../../assets/png/collage2.png")}
+            source={require("../../assets/png/collage3.png")}
           />
         </View>
         

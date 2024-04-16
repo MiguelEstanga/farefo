@@ -60,7 +60,12 @@ function CrearPassword() {
               setUsuarioExiste(true);
             }
 
-            else{
+            if(res.data.CodRespuesta === "1056")
+            {
+              setModal(true) //para cuando la pw no cmpla con los requesitos 
+            }
+
+            else{ 
               navegacion.navigate("registroexitoso");
             }
         })
@@ -161,7 +166,7 @@ function CrearPassword() {
 
           <View
             style={{
-              marginTop: 20,
+              marginTop: 35,
               gap: 10,
               marginLeft: 40,
 
@@ -209,7 +214,7 @@ function CrearPassword() {
                   color: "#152559",
                 }}
               >
-                Al menos un carácter especial (#!%&/*)
+                Al menos un caracter especial (#!%&/*)
               </Text>
             </View>
           </View>
@@ -222,10 +227,10 @@ function CrearPassword() {
           />
           <View
             style={{
-              marginTop: 20,
+              marginTop: 30,
               gap: 10,
               marginLeft: 40,
-
+              
               width: 220,
             }}
           >

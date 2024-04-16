@@ -4,12 +4,14 @@ import { View, TouchableOpacity, StyleSheet, Image } from "react-native";
 import { SubmenuContext } from "../context/SubMenuContex";
 import { MasContext } from "../context/Mas";
 import { LoginContext } from "../context/Login";
+import { StatusContext } from "../context/StatusContex";
 
 function MenuModal() {
   const navegacion = useNavigation();
   const { setModalMenu, modal } = useContext(SubmenuContext);
   const { setOption } = useContext(MasContext);
   const { credenciales, setCredenciales } = useContext(LoginContext);
+  const { setState } = useContext(StatusContext)
   return (
     <TouchableOpacity 
       style={styles.container}
@@ -72,6 +74,7 @@ function MenuModal() {
           <TouchableOpacity
             onPress={() => {
               setCredenciales({});
+              setState(false)
               setModalMenu(false);
               navegacion.navigate("Login");
             }}

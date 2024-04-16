@@ -115,7 +115,7 @@ function CrearPassword() {
 
           <View
             style={{
-              marginTop: 20,
+              marginTop: 35,
               gap: 10,
               marginLeft: 40,
 
@@ -176,7 +176,7 @@ function CrearPassword() {
           />
           <View
             style={{
-              marginTop: 20,
+              marginTop: 30,
               gap: 10,
               marginLeft: 40,
 

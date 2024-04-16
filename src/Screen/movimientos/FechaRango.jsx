@@ -4,9 +4,7 @@ import { useEffect } from "react";
 
 export default function FechaRango({res})
 {
-    useEffect(() =>{
-        console.log(res)
-    })
+  
     return (
     <View style={style.container}>
         <View style={style.contenido} >

@@ -8,7 +8,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { useContext, useEffect } from "react";
 import { MasContext } from "../../context/Mas";
 import { useNavigation } from "@react-navigation/native";
-
+// #region TEST
 function MasOpciones() {
     const Tab = createStackNavigator()
     const {option} = useContext(MasContext)

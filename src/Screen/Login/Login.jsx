@@ -20,6 +20,7 @@ import { TarjetaContext } from "../../context/Tarjeta";
 import { URL, endpoint } from "../../Helpers/Api";
 import { AES, TripleDES, lib, mode, CipherOption, Cipher } from 'crypto-js';
 import CryptoJS from 'react-native-crypto-js';
+import { StatusContext } from "../../context/StatusContex";
 
 
 function Login() {
@@ -33,7 +34,6 @@ function Login() {
   const [loaded, setLoaded] = useState(false);
   const [textError, setTextError] = useState("");
   const [modal, setModal] = useState(false);
-
  
 
 
@@ -51,9 +51,7 @@ function Login() {
     });
     
     const plaintext = decrypted.toString(CryptoJS.enc.Utf8);
-    
-    console.log('NIP desencriptado:', plaintext);
-    console.log(ciphertext)
+  
      
   }, [error, loaded]);
 
@@ -76,7 +74,7 @@ function Login() {
       )
       .then((res) => {
         setTarjeta({ ...res.data });
-        console.log(res.data);
+        
         navegacion.navigate("HOMES");
       })
       .catch((exection) => {
@@ -153,15 +151,18 @@ function Login() {
       )}
 
       <View style={style.container}>
-        <View style={style.marcos}>
+        
           <Image
             style={{
               width: "100%",
               height: "100%",
+              borderWidth:11,
+              position:"absolute",
+              bottom:0
             }}
             source={require("../../../assets/png/marcos.png")}
           />
-        </View>
+       
         <ScrollView
           style={{
             width: "100%",
@@ -203,7 +204,7 @@ function Login() {
                   textSubtitulo={
                     "Captura el teléfono con el que se dio de alta tu cuenta "
                   }
-                  placeholder={""}
+                  placeholder={""} 
                   password={false}
                   initPassword={false}
                   eventoText={setUsuario}
@@ -301,11 +302,7 @@ const style = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  marcos: {
-    position: "absolute",
-    width: "100%",
-    height: "100%",
-  },
+
   contenformulario: {
     height: 500,
     width: "95%",

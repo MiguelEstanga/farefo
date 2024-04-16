@@ -10,6 +10,7 @@ import CVVProvider from "./src/context/CVV";
 import Registro from "./src/context/Registrar";
 import MAS from "./src/context/Mas";
 import DetalleComprasProvider from "./src/context/DetallesCompraContext"
+import StatusProvider from "./src/context/StatusContex";
 export default function App() {
   return (
     <NavigationContainer>
@@ -18,6 +19,7 @@ export default function App() {
           <TarjetaProvider>
             <NIP>
               <CVVProvider>
+                <StatusProvider>
                 <DetalleComprasProvider>
                 <MAS>
                   <Registro>
@@ -25,6 +27,7 @@ export default function App() {
                   </Registro>
                 </MAS>
                 </DetalleComprasProvider>
+                </StatusProvider>
               </CVVProvider>
             </NIP>
           </TarjetaProvider>

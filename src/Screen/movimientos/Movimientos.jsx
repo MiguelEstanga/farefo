@@ -27,7 +27,7 @@ function Movimientos() {
   const [fecha_inicio , setFechaInicio ] = useState(fecha())
   const [fecha_fin , setFechaFin ] = useState(fecha())
   const {tarjeta} = useContext(TarjetaContext)
-  
+  const [mensage , setMensage] = useState("No hay movimientos para este periodo");
   const { 
     setShow,
     show, 
@@ -44,16 +44,30 @@ function Movimientos() {
     const day = ("0" + date.getDate()).slice(-2);
     const month = ("0" + (date.getMonth() + 1)).slice(-2); // Los meses en JavaScript comienzan desde 0
     const year = date.getFullYear();
+    
+    return `${year}-${month}-${day}`;
+  };
+
+  function fechaformat(fecha){
+    const day = fecha.split("-")[0]
+    const month = fecha.split("-")[1]
+    const year = fecha.split("-")[2]
+
     return `${day}-${month}-${year}`;
   };
 
   const handleMovimientos = ()=>{
+
+    
+    setLoaded(true)
    
-    const headers = {
+    
+     const headers = {
       "Content-Type" : "application/json",
       Authorization: `Bearer ${credenciales.Token}`,
     };
-    setLoaded(true)
+   
+
     axios.post("https://api1-dev.parabilium.com/wsAppConnect_FR_SB/api/ConsultarMovimientosTarjeta/",
     {
       "IDSolicitud":      "",
@@ -73,7 +87,8 @@ function Movimientos() {
       setMovimientos(res.data.Movimientos)
       if(res.data.Movimientos == null)
       {
-          console.log(res.data)
+         
+          setMensage(res.data.DescRespuesta)
           setDetallesCompra({
             ...detallesCompras,
             fechaInicial:fecha_inicio,
@@ -93,7 +108,10 @@ function Movimientos() {
       setLoaded(false)
     })
   }
+
+  
   useEffect(()=>{
+    
   
     handleMovimientos()
       
@@ -136,6 +154,8 @@ function Movimientos() {
             fecha={fecha_inicio} 
             label={'Fecha inicio'}
             setData={setFechaInicio}
+            fechaComparativa={fecha_fin}
+            exprecion={0}
           />
         </View>
         <View style={{ width: "50%", height: 40 }}>
@@ -143,6 +163,8 @@ function Movimientos() {
             fecha={fecha_fin} 
             label={"Fecha fin"} 
             setData={setFechaFin}
+            fechaComparativa={fecha_inicio }
+            exprecion={1}
           />
         </View>
       </View>
@@ -166,7 +188,7 @@ function Movimientos() {
                 width:180,
                 fontWeight:'500'
             }} >
-             No hay movimientos para este periodo
+              {mensage}
             </Text>
                          
 

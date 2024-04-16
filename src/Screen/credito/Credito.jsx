@@ -6,47 +6,18 @@ import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { TarjetaContext } from "../../context/Tarjeta";
 import { LoginContext } from "../../context/Login";
+import { StatusContext } from "../../context/StatusContex";
 
 function Credito() {
-  const [status , setStatus] = useState()
-   const {tarjeta} = useContext(TarjetaContext)
-    const {credenciales} = useContext(LoginContext)
-
-    const status_tarjeta = () => {
-      const headers = {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${credenciales.Token}`,
-      };
-      axios
-        .post(
-          "https://api1-dev.parabilium.com/wsAppConnect_FR_SB/api/ValidarTarjeta/",
-          {
-            "IDSolicitud": "",
-            "Tarjeta": tarjeta.Tarjeta
-          },
-          {
-            headers
-          }
-         
-        )
-        .then((res) => {
-          
-          if(res.status == 200){
-             
-              res.data.DescripcionStatus == "ACTIVA" ? setStatus(true) : setStatus(false) 
-            
-          }
-      
-        })
-        .catch(error => setText("error al conectar con el servodor ("+error+")") )
-        
-    };
-
+  //const [status , setStatus] = useState()
+  const {tarjeta} = useContext(TarjetaContext)
+  const {credenciales} = useContext(LoginContext)
+  const {state , status} =  useContext(StatusContext)
+    
   useEffect(() => {
-    
-    status_tarjeta()
-    
-  }, [])
+    console.log("estado" , state)
+  }, [state , status ])
+
   return (
     <ScrollView>
       <View style={{ alignItems: "center" }}>
@@ -54,7 +25,7 @@ function Credito() {
           <TarjetaFisica />
         </View>
         <CreditoInfo />
-       
+        
 
         <View style={style.contenBtn}>
           <BtnNavegacion
@@ -66,7 +37,7 @@ function Credito() {
             navegacion={'Movimientos'}
           />
           {
-            status == true ? null : (  <BtnNavegacion
+            status === true ? null : (  <BtnNavegacion
               imagen={require("../../../assets/png/activar_tarjeta.png")}
               navegacion={"Activar"}
             />)

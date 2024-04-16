@@ -3,12 +3,13 @@ import CreditoInfo from "../../component/CreditoInfo";
 import SwiperComponent from "../../component/Carrucel";
 import { useContext, useState } from "react";
 import { LoginContext } from "../../context/Login";
+import { StatusContext } from "../../context/StatusContex";
 
 function Home() {
   const {credenciales} = useContext(LoginContext)
-
+  const {handleStatus} = useContext(StatusContext)
   useState(()=>{
-    
+    handleStatus()
   } , [credenciales])
   return (
     <View style={style.container}>

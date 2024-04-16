@@ -133,6 +133,7 @@ function NavegacionRourter() {
           headerShown: false,
         }}
       />
+      
       <Stak.Screen
         name="HOMES"
         component={Route}

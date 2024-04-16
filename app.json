@@ -2,10 +2,10 @@
   "expo": {
     "name": "FAREFO",
     "slug": "FAREFO",
-    "version": "1.0.2",
+    "version": "1.0.8",
     "orientation": "portrait",
     "icon": "./assets/logo.png",
-    "resizeMode": "center",
+    "resizeMode": "cover",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splah.png",

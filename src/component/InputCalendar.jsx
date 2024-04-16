@@ -10,7 +10,7 @@ LocaleConfig.locales['fr'] = {
     'Febrero',
     'Marzo',
     'Abril',
-    'Marzo',
+    'Mayo',
     'Junio',
     'Julio',
     'Agosto',
@@ -26,28 +26,51 @@ LocaleConfig.locales['fr'] = {
   today: "Aujourd'hui"
 };
 LocaleConfig.defaultLocale = 'fr';
-function InputCalendar({fecha, label , setData}) {
+function InputCalendar(
+  {
+    fecha, 
+    label, 
+    setData,
+    fechaComparativa,
+    exprecion
+
+  }) {
   const [date, setDate] = useState(fecha);
   const [open , setOpen] = useState(false);
   const [selected, setSelected] = useState('');
-  const handle_get_data = (dateprop) => {
-    
-    const [ano , mes , dia] = dateprop.split('-')
-    console.log("tiem calendar")
-    console.log(`${dia}-${mes}-${ano}`)
-   
 
+  const handle_get_data = (dateprop) => {
+    const [ano , mes , dia] = dateprop.split('-')
+    const parsefecha = fechaComparativa.split("-")
+
+    const fecha1 = new Date(`${ano}-${mes}-${dia}`)
+
+    const fecha2 = new Date(`${parsefecha[0]}-${parsefecha[1]}-${parsefecha[2]}`);
+
+   
+    if(exprecion == 0)
+    {
+        if(fecha1 > fecha2 ) return 
+    }
+
+  
     setOpen(!open)
-    setDate(`${dia}-${mes}-${ano}`)
+    setDate(`${ano}-${mes}-${dia}`)
     setData(`${ano}-${mes}-${dia}`)
    // setDate(dateprop);
   };
 
   useEffect(()=>{
-    console.log("react-native-calendar")
-    console.log(selected)
-  } , [open ,date , selected])
- 
+   
+  } , [open ,date , selected ])
+  
+  function fechaformat(fecha){
+    const day = fecha.split("-")[2]
+    const month = fecha.split("-")[1]
+    const year = fecha.split("-")[0]
+   
+    return `${day}-${month}-${year}`;
+  };
   return (
     <View style={{width:"100%"}} >
         <Text style={{fontSize:14 , color:"#152559", fontWeight:"500" }} >
@@ -58,7 +81,7 @@ function InputCalendar({fecha, label , setData}) {
         onPress={() => {setOpen(!open)}}
     >
         <Text style={{color:"#707070"}} >
-             {date} 
+             {fechaformat(fecha)} 
         </Text>
         <Text onPress={() => setOpen(!open) } >
              <Feather name="calendar" size={17} color="#707070" />

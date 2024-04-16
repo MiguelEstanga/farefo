@@ -3,8 +3,13 @@ import Titulo from "../../../component/Titulo";
 import CreditoInfo from "../../../component/CreditoInfo";
 import InputText from "../../../component/InputText";
 import Btn from "../../../component/Btn";
+import { useState } from "react";
 
 function Monto() {
+  const [monto ,setMonto] = useState("")
+  const [Concepto ,setConcepto] = useState("")
+  const [referencia ,setReferencia] = useState("")
+
   return (
     <View>
       <View>
@@ -15,13 +20,28 @@ function Monto() {
       </View>
       <View style={{ alignItems: "center" }}>
         <View style={style.input}>
-          <InputText label={"Monto"} />
+          <InputText 
+            label={"Monto"} 
+            eventoText={setMonto}
+            initPassword={false}
+            password={false}
+          />
         </View>
         <View style={style.input}>
-          <InputText label={"Concepto"} />
+          <InputText 
+            label={"Concepto"} 
+            eventoText={setConcepto}
+            initPassword={false}
+            password={false}
+          />
         </View>
         <View style={style.input}>
-          <InputText label={"Referencia"} />
+          <InputText 
+            label={"Referencia"} 
+            eventoText={setReferencia}
+            initPassword={false}
+            password={false}
+          />
         </View>
       </View>
       <View style={{ flexDirection: "row",  alignItems:"center", justifyContent:"center" , gap:10 }}>
