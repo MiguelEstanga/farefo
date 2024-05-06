@@ -180,10 +180,10 @@ const registro = () => {
         <Text style={{ fontSize: 30 }}> {telefonoC}</Text>
       </View>
       <View style={{ justifyContent: "center", alignItems: "center" }}>
-        <Text style={{ color: "#152559", fontSize: 16 }}>
-          <Text>
-            <Image source={require("../../../assets/png/tiempo.png")} />
-          </Text>{" "}
+     
+        <Text style={{ color: "#152559", fontSize: 16 ,height:40, }}>
+        <Image source={require("../../../assets/png/tiempo.png")} />
+        {" "}
           Tú código vence en:
         </Text>
         <Text style={{ fontSize: 16 }}>

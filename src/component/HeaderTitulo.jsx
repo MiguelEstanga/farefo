@@ -1,6 +1,9 @@
 import { View , Text , TouchableOpacity } from "react-native";
 import { AntDesign } from '@expo/vector-icons';
 import { useNavigation } from "@react-navigation/native";
+import { Dimensions } from 'react-native';
+const screenWidth = Dimensions.get('window').width;
+
 export default function  HeaderTitulo({titulo}){
     const navegacion = useNavigation()
     return (<View  style={{
@@ -22,7 +25,7 @@ export default function  HeaderTitulo({titulo}){
         <Text
             style={{
                 color:"#152559",
-                fontSize:20,
+                fontSize: screenWidth * 0.05,
                 fontWeight:"500",
                
                 marginLeft:30

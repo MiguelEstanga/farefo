@@ -139,13 +139,13 @@ function Informacion() {
           modal={error}
         />):''
       }
-      <View>
+      <View style={{ alignItems:"center" }}>
     
-        <View style={{ alignItems: "center", justifyContent: "center" }}>
+        <View style={{width:"90%", alignItems: "center", justifyContent: "center" }}>
           <TarjetaFisica />
         </View>
         <View style={style.h1}>
-          <Text style={{ color: "#D62B50", fontSize: 26, fontWeight: "400" }}>
+          <Text style={{color: "#D62B50", fontSize: 26, fontWeight: "400" }}>
             Tarjeta Física
           </Text>
         </View>
@@ -336,6 +336,8 @@ const style = StyleSheet.create({
     height: 39,
     justifyContent: "center",
     paddingLeft: 30,
+
+    width:"100%"
   },
   consulta: {
     marginTop: 20,

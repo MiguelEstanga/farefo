@@ -8,6 +8,7 @@ import { useNavigation } from "@react-navigation/native";
 import { ModalAlert } from "../../component/Modal";
 import axios from "axios";
 import { RegistroContext } from "../../context/Registrar";
+import Loaded from "../../component/Loaded";
 function CrearPassword() {
   const [isCarecter, setICaracter] = useState(false);
   const [isEspecial, setIsEspecial] = useState(false);
@@ -20,8 +21,10 @@ function CrearPassword() {
   const [modal, setModal] = useState(false);
   const {  telefonoC} = useContext(RegistroContext);
   const navegacion = useNavigation();
-  
-  const registrar = () => {
+  const [loading , setLoading] = useState(false)
+
+
+  const change_password = () => {
     if (
       isCarecter == true &&
       isNumero == true &&
@@ -30,6 +33,7 @@ function CrearPassword() {
       const headers = {
         "Credenciales": "R2VuZXJpY1VzZXI6RG51LjEyMw==",
       };
+      setLoading(true)
       axios
         .post(
           "https://api1-dev.parabilium.com/wsAppConnect_FR_SB/api/RecuperarPassword/",
@@ -42,7 +46,7 @@ function CrearPassword() {
           }
         )
         .then((res) => {
-   
+            console.log(res.data)
           if (res.data.CodigoRespuesta === "0002") {
             setUsuarioExiste(true);
           }
@@ -50,14 +54,17 @@ function CrearPassword() {
           if (res.data.CodigoRespuesta == "0" ) {
             navegacion.navigate("CambioExitozo");
           }
-        });
+        })
+        .finally(res => {
+          setLoading(false)
+        })
     } else {
       setModal(true);
     }
   };
   
   useEffect(() => {
-    console.log(confirmPassword)
+    
     if(password.length > 0 && confirmPassword.length > 0){
       if(password == confirmPassword)
       {
@@ -74,7 +81,7 @@ function CrearPassword() {
   };
   const checkPassword = (password) => {
     const hasNumber = /\d/.test(password);
-    const hasSpecialChar = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/.test(
+    const hasSpecialChar = /[ `!@#$%^&*=\[\]"]/.test(
       password
     );
     const hasUppercase = password.toLowerCase() !== password;
@@ -90,7 +97,8 @@ function CrearPassword() {
     setPassword(password);
   };
   return (
-    <View>
+    <View style={{height:"100%"}}>
+        {loading === true ? (<Loaded/>) : ""} 
       <ModalAlert
         modal={modal}
         setmodal={setModal}
@@ -202,7 +210,7 @@ function CrearPassword() {
               <Btn
                 color={"#152559"}
                 texto={"Continuar"}
-                evento={() => registrar()}
+                evento={() => change_password()}
               />
             </View>
           </View>

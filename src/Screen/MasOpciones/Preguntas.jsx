@@ -107,7 +107,7 @@ export function Preguntas() {
             <View style={style.container} >
                 <View style={style.contenleyenda}  >
                     <Text style={style.leyenda}  >
-                        En esta sección encontraras respuestas a la mayoría de tus dudas,
+                        En esta sección encontrarás respuestas a la mayoría de tus dudas,
                         si no hemos respondido a tu pregunta comunícate con nosotros al correo:
                         credito@farefo.com
                     </Text>

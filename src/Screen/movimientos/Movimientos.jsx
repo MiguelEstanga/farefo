@@ -48,13 +48,7 @@ function Movimientos() {
     return `${year}-${month}-${day}`;
   };
 
-  function fechaformat(fecha){
-    const day = fecha.split("-")[0]
-    const month = fecha.split("-")[1]
-    const year = fecha.split("-")[2]
-
-    return `${day}-${month}-${year}`;
-  };
+ 
 
   const handleMovimientos = ()=>{
 

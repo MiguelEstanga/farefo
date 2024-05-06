@@ -107,7 +107,7 @@ function CrearPassword() {
   const checkPassword = (password) => {
    
     const hasNumber = /\d/.test(password);
-    const hasSpecialChar = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/.test(
+    const hasSpecialChar = /[ `!@#$%^&*\[\]/]/.test(
       password
     );
     const hasUppercase = password.toLowerCase() !== password;

@@ -21,7 +21,7 @@ function Credito() {
   return (
     <ScrollView>
       <View style={{ alignItems: "center" }}>
-      <View>
+        <View style={{width:"90%", justifyContent:"center" , alignItems:"center" }} >
           <TarjetaFisica />
         </View>
         <CreditoInfo />

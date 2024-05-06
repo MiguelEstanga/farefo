@@ -192,19 +192,19 @@ const registro = () => {
         <Text style={{ fontSize: 30 }}> {telefonoC}</Text>
       </View>
       <View style={{ justifyContent: "center", alignItems: "center" }}>
-        <Text style={{ color: "#152559", fontSize: 16 }}>
-          <Text>
-            <Image source={require("../../../assets/png/tiempo.png")} />
-          </Text>{" "}
-          Tú código vence en:
-        </Text>
-        <Text style={{ fontSize: 16 }}>
-          <Text style={{ color: "#D1103A", fontSize: 16, marginTop: 10 }}>
-            {formatTime(seconds)}
-          </Text>
-          minutos
-        </Text>
-      </View>
+     
+     <Text style={{ color: "#152559", fontSize: 16 ,height:40, }}>
+     <Image source={require("../../../assets/png/tiempo.png")} />
+     {" "}
+       Tú código vence en:
+     </Text>
+     <Text style={{ fontSize: 16 }}>
+       <Text style={{ color: "#D1103A", fontSize: 16, marginTop: 10 }}>
+         {formatTime(seconds)}
+       </Text>
+       minutos
+     </Text>
+   </View>
       <View>
         <View style={style.containerInput}>
         <CodeField

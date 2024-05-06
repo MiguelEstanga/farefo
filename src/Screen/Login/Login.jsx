@@ -21,7 +21,8 @@ import { URL, endpoint } from "../../Helpers/Api";
 import { AES, TripleDES, lib, mode, CipherOption, Cipher } from 'crypto-js';
 import CryptoJS from 'react-native-crypto-js';
 import { StatusContext } from "../../context/StatusContex";
-
+import { SafeAreaView } from "react-native-safe-area-context";
+import { Dimensions } from 'react-native';
 
 function Login() {
   const navegacion = useNavigation();
@@ -34,8 +35,9 @@ function Login() {
   const [loaded, setLoaded] = useState(false);
   const [textError, setTextError] = useState("");
   const [modal, setModal] = useState(false);
- 
-
+  const [visible, setVisible] = useState(true);
+  const screenHeight = Dimensions.get('window').height;
+  const screenWidth = Dimensions.get('window').width;
 
   useEffect(() => {
     
@@ -54,6 +56,13 @@ function Login() {
   
      
   }, [error, loaded]);
+
+  useEffect(() => {
+    setTimeout(() => {
+     
+      setVisible(false);
+    }, 5000); // Retardo de 3 segundos
+  }, []);
 
   const tarjetaInfo = (usuario) => {
     const headers = {
@@ -138,153 +147,183 @@ function Login() {
     }
   };
 
-  return (
-    <ScrollView>
-      {loaded == true ? <Loaded /> : ""}
 
-      <ModalAlert modal={modal} setmodal={setModal} mensage={textError} />
-
-      {cth == true ? (
-        <ModalAlert modal={cth} setmodal={setCth} mensage={textError} />
-      ) : (
-        ""
-      )}
-
-      <View style={style.container}>
-        
-          <Image
-            style={{
-              width: "100%",
-              height: "100%",
-              borderWidth:11,
-              position:"absolute",
-              bottom:0
-            }}
-            source={require("../../../assets/png/marcos.png")}
-          />
-       
-        <ScrollView
+  if(visible)
+  {
+      return (<View
+        style={{
+            position:"absolute",
+            width:"100%",
+            height:"100%",
+          
+            zIndex:10,
+            bottom:0
+            
+        }}
+      >
+        <Image
           style={{
-            width: "100%",
+            width:"100%",
+            height:"100%",
+          
           }}
-        >
+          source={require('../../../assets/splah.png')}
+        />
+      </View>)
+  }
+  return (
+
+      <SafeAreaView>
+       
           <View
             style={{
-              flex: 1,
-
-              height: 800,
-              justifyContent: "center",
-              alignItems: "center",
+              width:"100%",
+              height:"100%",
+              justifyContent:"center",
+              alignItems:"center"
             }}
           >
-            <View style={style.contenformulario}>
+           
+                <Image
+                  style={{
+                    position:"absolute",
+                    top:0,
+                 
+                    borderWidth:1,
+                    width:screenWidth,
+                    height:screenHeight,
+                  }}
+                  source={require("../../../assets/png/marcos.png")}
+                />
+           
+            
+          
+            {loaded == true ? <Loaded /> : ""}
+
+            <ModalAlert modal={modal} setmodal={setModal} mensage={textError} />
+
+            {cth == true ? ( <ModalAlert modal={cth} setmodal={setCth} mensage={textError} />) : ("")}
+
+        
+            
+
+          
+           
               <View
-                style={{
-                  width: "100%",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
+              
               >
-                <View style={style.logo}>
-                  <Image
+                <View style={style.contenformulario}>
+                  <View
                     style={{
                       width: "100%",
-                      height: "100%",
-                      resizeMode: "stretch",
-                    }}
-                    source={require("../../../assets/png/login_farefo.png")}
-                  />
-                </View>
-              </View>
-
-              <View style={style.formulario}>
-                <InputText
-                  label={"Teléfono"}
-                  subtitulo={true}
-                  textSubtitulo={
-                    "Captura el teléfono con el que se dio de alta tu cuenta "
-                  }
-                  placeholder={""} 
-                  password={false}
-                  initPassword={false}
-                  eventoText={setUsuario}
-                  longitud={10}
-                  number={true}
-                />
-
-                <View style={{ marginTop: 50 }}>
-                  <InputText
-                    label={"Contraseña"}
-                    subtitulo={false}
-                    password={true}
-                    initPassword={true}
-                    eventoText={setPassword}
-                  />
-                </View>
-                <View style={style.fogotpassword}>
-                  <TouchableOpacity
-                    style={{
-                      flexDirection: "row",
                       alignItems: "center",
-                      gap: 10,
-                      padding: 10,
-                    }}
-                  >
-                    <View>
-                      <Image
-                        source={require("../../../assets/png/candadito.png")}
-                      />
-                    </View>
-                    <Text
-                      onPress={() => navegacion.navigate("TabPassword")}
-                      style={{ borderBottomWidth: 1 }}
-                    >
-                      Olvidé mi contraseña
-                    </Text>
-                  </TouchableOpacity>
-                </View>
-                <View style={{ width: "95", height: 40, margin: 30 }}>
-                  <Btn
-                    texto={"Entrar"}
-                    color={"#152559"}
-                    evento={() => login()}
-                  />
-                </View>
-                <View style={style.registro}>
-                  <TouchableOpacity
-                    style={{
-                      flexDirection: "row",
-                      gap: 10,
                       justifyContent: "center",
-                      alignItems: "center",
                     }}
                   >
-                    <View>
+                    <View style={style.logo}>
                       <Image
-                        source={require("../../../assets/png/usuario.png")}
+                        style={{
+                          width: 300,
+                          height: "100%",
+                          resizeMode: "stretch",
+                        }}
+                        source={require("../../../assets/png/login_farefo.png")}
                       />
                     </View>
-                    <Text
-                      onPress={() => {
-                        navegacion.navigate("TabRegistro");
-                      }}
-                      style={{
-                        borderColor: "#D1103A",
-                        borderBottomWidth: 1,
-                        color: "#D1103A",
-                        fontSize: 16,
-                      }}
-                    >
-                      Registrarme
-                    </Text>
-                  </TouchableOpacity>
+                  </View>
+
+                  <View style={style.formulario}>
+                    <InputText
+                      label={"Teléfono"}
+                      subtitulo={true}
+                      textSubtitulo={
+                        "Captura el teléfono con el que se dio de alta tu cuenta "
+                      }
+                      placeholder={""} 
+                      password={false}
+                      initPassword={false}
+                      eventoText={setUsuario}
+                      longitud={10}
+                      number={true}
+                    />
+
+                    <View style={{ marginTop: 50 }}>
+                      <InputText
+                        label={"Contraseña"}
+                        subtitulo={false}
+                        password={true}
+                        initPassword={true}
+                        eventoText={setPassword}
+                      />
+                    </View>
+                    <View style={style.fogotpassword}>
+                      <TouchableOpacity
+                        style={{
+                          flexDirection: "row",
+                          alignItems: "center",
+                          gap: 10,
+                          padding: 10,
+                        
+                        }}
+                      >
+                        <View>
+                          <Image
+                            source={require("../../../assets/png/candadito.png")}
+                          />
+                        </View>
+                        <Text
+                          onPress={() => navegacion.navigate("TabPassword")}
+                          style={{ borderBottomWidth: 1 }}
+                        >
+                          Olvidé mi contraseña 
+                        </Text>
+                      </TouchableOpacity>
+                    </View>
+                    <View style={{ width: "95", height: 40, margin: 30 }}>
+                      <Btn
+                        texto={"Entrar"}
+                        color={"#152559"}
+                        evento={() => login()}
+                      />
+                    </View>
+                    <View style={style.registro}>
+                      <TouchableOpacity
+                        style={{
+                          flexDirection: "row",
+                          gap: 10,
+                          justifyContent: "center",
+                          alignItems: "center",
+                        }}
+                      >
+                        <View>
+                          <Image
+                            source={require("../../../assets/png/usuario.png")}
+                          />
+                        </View>
+                        <Text
+                          onPress={() => {
+                            navegacion.navigate("TabRegistro");
+                          }}
+                          style={{
+                            borderColor: "#D1103A",
+                            borderBottomWidth: 1,
+                            color: "#D1103A",
+                            fontSize: 16,
+                          }}
+                        >
+                          Registrarme
+                        </Text>
+                      </TouchableOpacity>
+                    </View>
+                  </View>
                 </View>
               </View>
-            </View>
+
+
+                               
           </View>
-        </ScrollView>
-      </View>
-    </ScrollView>
+              
+      </SafeAreaView>                    
   );
 }
 
@@ -293,24 +332,27 @@ const style = StyleSheet.create({
     marginTop: 30,
   },
   fogotpassword: {
-    width: "92%",
+    width: 320,
     marginTop: 30,
   },
   container: {
-    width: "100%",
-    height: "100%",
-    justifyContent: "center",
-    alignItems: "center",
+    height:"100%",
+    justifyContent:"center",
+    alignItems:"center",
+    
+   
   },
 
   contenformulario: {
     height: 500,
     width: "95%",
     justifyContent: "center",
+    alignItems:"center"
   },
   logo: {
-    width: "87%",
-    height: 73,
+    width: 300,
+    height: 65,
+  
   },
   formulario: {
     marginTop: 20,

@@ -1,7 +1,7 @@
 import { useContext, useEffect } from "react";
 import { View  , StyleSheet , Text , TouchableOpacity} from "react-native";
 import { DetalleComprasContext } from "../../context/DetallesCompraContext";
-
+import agregarComas from "../../Helpers/agregarComas";
 export default function Movimientos({nombre_movimiento , FechaMovimiento , ImporteMovimiento , DescripcionPostOperacion , DescripcionComercio})
 {
     const {show , setShow, detallesCompras , setDetallesCompra} = useContext(DetalleComprasContext)
@@ -32,7 +32,7 @@ export default function Movimientos({nombre_movimiento , FechaMovimiento , Impor
             </View>
             <View style={style.data}>
                 <Text style={style.text_data} >
-                    ${ImporteMovimiento}
+                    ${ agregarComas(ImporteMovimiento)}
                 </Text>
                 <Text style={{color:"#616161" , fontSize:16 , textAlign:"right"}}>
                      {DescripcionPostOperacion}

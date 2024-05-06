@@ -94,7 +94,7 @@ export default function Route() {
                 source={require('./assets/png/flechasmennu.png')}
             />
           ),
-          title: "TRANFERENCIA",
+          title: "TRANSFERENCIA",
         }}
       />
 
@@ -113,7 +113,7 @@ export default function Route() {
           tabBarIcon: ({ color, size }) => (
             <FontAwesome name="plus-square-o" size={24} color="black" />
           ),
-          headerTitle: () => <HeaderTitulo  titulo={option === 1 ? "Perfil" : option === 2 ? "Preguntas Frecuentes": "Reporte por Robo o extravío"} />,
+          headerTitle: () => <HeaderTitulo  titulo={option === 1 ? "Perfil" : option === 2 ? "Preguntas Frecuentes": "Reporte por robo o extravío"} />,
          
           headerTitleAlign:"center",
           headerTintColor:"#152559",

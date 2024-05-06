@@ -45,6 +45,13 @@ function ConfirmacionNip() {
         .then((res) => {
             if(res.status == 200)
             {
+              if(res?.data?.CodRespuesta  === "1017") {
+                setText("Por el momento no podemos generar tu NIP, dirígete con tu administrador para que pueda proporcionártelo.")
+                setModal(true)
+                return 0;
+              }
+
+
               console.log(res.data)
               setNip({...res.data})
               navegacion.navigate('NIP')
@@ -63,7 +70,7 @@ function ConfirmacionNip() {
           })
     } else {
         setModal(true)
-        
+        setText("Contraseña incorrecta ")
     }
   };
 
@@ -79,9 +86,7 @@ function ConfirmacionNip() {
         <ModalAlert
           modal={modal}
           setmodal={setModal}
-          mensage={
-            "Contraseña incorrecta"
-          }
+          mensage={text}
         />
    
 

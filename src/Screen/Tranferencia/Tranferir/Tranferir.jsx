@@ -16,7 +16,7 @@ export default function Tranferir()
     }
   return (
     <View style={style.container}>
-      <Titulo titulo={"¿A quien deseas transferir?"} />
+      <Titulo titulo={"¿A quién deseas transferir?"} />
 
       <View  style={{ height:300 , alignItems:"center" , marginTop:30}} >
         <View style={style.input}>
