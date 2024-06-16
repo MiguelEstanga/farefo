@@ -23,14 +23,15 @@ import CryptoJS from 'react-native-crypto-js';
 import { StatusContext } from "../../context/StatusContex";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Dimensions } from 'react-native';
-
+import  {getTarjeta, httpLogin} from '../../api/Peticiones';
 function Login() {
+
   const navegacion = useNavigation();
   const [usuario, setUsuario] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
   const [cth, setCth] = useState(false);
-  const {setCredenciales } = useContext(LoginContext);
+  const {setCredenciales , credenciales } = useContext(LoginContext);
   const {setTarjeta } = useContext(TarjetaContext);
   const [loaded, setLoaded] = useState(false);
   const [textError, setTextError] = useState("");
@@ -82,70 +83,47 @@ function Login() {
         }
       )
       .then((res) => {
-        setTarjeta({ ...res.data });
         
-        navegacion.navigate("HOMES");
+        console.log(res.data);
+       
+        if( res.data.CodRespuesta === "9999"){
+          setModal(true);
+          console.log(res.data)
+          setTextError(
+              res.data.DescRespuesta
+          );
+        }
+         
+        if( res.data.CodRespuesta === "0000"){
+          setTarjeta({ ...res.data });
+          navegacion.navigate("HOMES");
+        }
+       
       })
       .catch((exection) => {
         setError(exection);
-        console.log(exection);
+      
       });
   };
-  const login = async () => {
-    if (usuario.length < 10) {
-      setModal(true);
-      setTextError(
-        "EL número telefónico debe contener  10 dígitos."
-      );
-      return 0;
-    }
-
-    if (password.length > 0 && usuario.length > 0) {
-      setLoaded(true);
-      const headers = {
-        "Content-Type": "application/json",
-        Credenciales: "R2VuZXJpY1VzZXI6RG51LjEyMw==",
-      };
-      try {
-        const respuesta = await axios.post(
-          `${URL.UrlBase}${endpoint.LOGIN}`,
-          {
-            NombreUsuario: usuario.trim(),
-            Password: password.trim(),
-          },
-          {
-            headers,
-          }
-        );
-
-        console.log(respuesta.data);
-        if (respuesta.data.CodRespuesta === "0000") {
-          setCredenciales({ ...respuesta.data, password: password.trim() });
-
-          //aqui cahceo datos de la tarjeta
-          tarjetaInfo(usuario);
-          ///navegacion.navigate("HOMES");
-        } else {
-          setModal(true);
-          setTextError(
-            'Favor de revisar la información. Si es la primera vez que utilizas tu aplicación, regístrate desde el botón "Registrarme" '
-          );
-        }
-      } catch (error) {
-        setCth(true);
-        setTextError(
-          "error del servidor al momento de obtener datos hacer login (" +
-            error +
-            ")"
-        );
-      } finally {
-        setLoaded(false);
+  const HandleLogin = async () => {
+     let loginStatus = await httpLogin({
+        usuario:usuario.trim(),
+        password:password.trim(),
+        setLoaded:setLoaded,
+        setAlert:setModal,
+        setError:setTextError
+      })
+      console.log(loginStatus)
+      
+      if(loginStatus.status === true){
+        setCredenciales({ ...loginStatus.data, password: password.trim() });
+        tarjetaInfo(usuario.trim());
+       // navegacion.navigate("HOMES");
       }
-    } else {
-      setTextError("Los campos no pueden estar vacíos");
-      setModal(true);
-    }
-  };
+     
+  }
+
+ 
 
 
   if(visible)
@@ -283,7 +261,7 @@ function Login() {
                       <Btn
                         texto={"Entrar"}
                         color={"#152559"}
-                        evento={() => login()}
+                        evento={() => HandleLogin()}
                       />
                     </View>
                     <View style={style.registro}>

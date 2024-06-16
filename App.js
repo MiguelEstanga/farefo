@@ -11,6 +11,8 @@ import Registro from "./src/context/Registrar";
 import MAS from "./src/context/Mas";
 import DetalleComprasProvider from "./src/context/DetallesCompraContext"
 import StatusProvider from "./src/context/StatusContex";
+import TranferenciaProvider from "./src/context/Tranferencia";
+
 export default function App() {
   return (
     <NavigationContainer>
@@ -21,11 +23,13 @@ export default function App() {
               <CVVProvider>
                 <StatusProvider>
                 <DetalleComprasProvider>
-                <MAS>
-                  <Registro>
-                    <Index />
-                  </Registro>
-                </MAS>
+                  <TranferenciaProvider>
+                    <MAS>
+                      <Registro>
+                        <Index />
+                      </Registro>
+                    </MAS>
+                  </TranferenciaProvider>
                 </DetalleComprasProvider>
                 </StatusProvider>
               </CVVProvider>

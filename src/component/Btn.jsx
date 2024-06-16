@@ -3,15 +3,17 @@ import { TouchableOpacity , Text } from "react-native";
 function Btn({
     texto,
     color,
-    evento
+    evento,
+    width=208,
+    height=40,
 }) {
     return ( <TouchableOpacity
         onPress={()=> evento()}
         style={
             {
                 backgroundColor:color,
-                width:208,
-                height:40,
+                width:width,
+                height:height,
                 borderRadius:8
             }
         }

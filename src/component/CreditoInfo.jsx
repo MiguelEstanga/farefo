@@ -10,8 +10,9 @@ function CreditoInfo() {
     
    }, []) 
 
-   function agregarComas(numero) {
-    const cadenaNumero = numero.toString();
+   function agregarComas(numero = 0) {
+    const cadenaNumero = numero;
+    
     const parteEntera = cadenaNumero.split('.')[0]
     const parteDesimal = cadenaNumero.split('.')[1] ?? '00'
     const grupos = [];

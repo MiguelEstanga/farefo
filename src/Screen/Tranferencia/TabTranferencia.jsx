@@ -2,6 +2,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Tranferir from "./Tranferir/Tranferir";
 import Monto from "./Monto/Monto";
 import Header from "../../component/Header";
+import Confirmacion from "./confitmacion/Confirmacion";
 
 const Tab = createNativeStackNavigator();
 function TabTranferencia() {
@@ -17,6 +18,12 @@ function TabTranferencia() {
       />
 
       <Tab.Screen name="Monto" component={Monto} options={{
+        headerTitleAlign:"center",
+        title:"Tranferencia",
+        headerTintColor:"#D62B50"
+      }}/>
+
+      <Tab.Screen name="Confirmacion" component={Confirmacion} options={{
         headerTitleAlign:"center",
         title:"Tranferencia",
         headerTintColor:"#D62B50"

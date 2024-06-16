@@ -3,13 +3,13 @@ import Titulo from "../../../component/Titulo";
 import InputText from "../../../component/InputText";
 import Btn from "../../../component/Btn";
 import { useNavigation } from "@react-navigation/native";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { TranferenciaContext } from "../../../context/Tranferencia";
 
 export default function Tranferir() 
 {
-    const [clabe , setClabe] = useState("")
-    const [alias , setAlias] = useState("")
-    const [nombre , setNombre] = useState("")
+   
+    const {tranferencia , setTranferencia } =useContext(TranferenciaContext)
     const navegacion = useNavigation()
     const handle_navegacion = ()=>{
         navegacion.navigate("Monto")
@@ -21,8 +21,9 @@ export default function Tranferir()
       <View  style={{ height:300 , alignItems:"center" , marginTop:30}} >
         <View style={style.input}>
           <InputText 
+           
             label={"CLABE"} 
-            eventoText={setClabe}
+            eventoText={(text ) => { setTranferencia({...tranferencia , clabe:text}) }}
             password={false}
             initPassword={false}
           />
@@ -30,7 +31,7 @@ export default function Tranferir()
         <View style={style.input}>
           <InputText 
             label={"Nombre del contacto"} 
-            eventoText={setNombre}
+            eventoText={ (nombre) => { setTranferencia({...tranferencia , nombre:nombre}) }}
             password={false}
             initPassword={false}
           />
@@ -38,7 +39,7 @@ export default function Tranferir()
         <View style={style.input}>
           <InputText 
             label={"Alias"} 
-            eventoText={setAlias}
+            eventoText={(alias) => { setTranferencia({...tranferencia , alias:alias}) }}
             password={false}
             initPassword={false}
           />

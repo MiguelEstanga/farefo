@@ -3,13 +3,12 @@ import Titulo from "../../../component/Titulo";
 import CreditoInfo from "../../../component/CreditoInfo";
 import InputText from "../../../component/InputText";
 import Btn from "../../../component/Btn";
-import { useState } from "react";
-
+import { useContext, useState } from "react";
+import { TranferenciaContext } from "../../../context/Tranferencia";
+import { useNavigation } from "@react-navigation/native";
 function Monto() {
-  const [monto ,setMonto] = useState("")
-  const [Concepto ,setConcepto] = useState("")
-  const [referencia ,setReferencia] = useState("")
-
+  const navegacion = useNavigation();
+  const { setTranferencia , tranferencia } = useContext(TranferenciaContext);
   return (
     <View>
       <View>
@@ -22,7 +21,7 @@ function Monto() {
         <View style={style.input}>
           <InputText 
             label={"Monto"} 
-            eventoText={setMonto}
+            eventoText={(Monto) =>  setTranferencia({...tranferencia , monto:Monto})}
             initPassword={false}
             password={false}
           />
@@ -30,7 +29,7 @@ function Monto() {
         <View style={style.input}>
           <InputText 
             label={"Concepto"} 
-            eventoText={setConcepto}
+            eventoText={(conceptop) =>  setTranferencia({...tranferencia , concepto:conceptop})}
             initPassword={false}
             password={false}
           />
@@ -38,7 +37,7 @@ function Monto() {
         <View style={style.input}>
           <InputText 
             label={"Referencia"} 
-            eventoText={setReferencia}
+            eventoText={(referencia) => setTranferencia({...tranferencia , referencia:referencia})}
             initPassword={false}
             password={false}
           />
@@ -50,7 +49,9 @@ function Monto() {
                     Regresar
                 </Text>
             </TouchableOpacity>
-            <TouchableOpacity style={{ justifyContent:"center" , alignItems:"center", width:"40%" , height:40 , borderRadius:8 , backgroundColor:"#152559" } } >
+            <TouchableOpacity
+                onPress={() => { navegacion.navigate("Confirmacion") }}
+                style={{ justifyContent:"center" , alignItems:"center", width:"40%" , height:40 , borderRadius:8 , backgroundColor:"#152559" } } >
                 <Text style={{color:"#FFFFFF" , fontSize:16 }}  >
                 Continuar
                 </Text>
