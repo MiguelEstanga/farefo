@@ -30,9 +30,8 @@ export async function httpLogin({
           headers,
         }
       );
-      
-     
       if(response.data.CodRespuesta === "0000"){
+        console.log(response.data);
         return {
             data:response.data,
             status:true
@@ -96,27 +95,40 @@ export async function httpComisiones({
 }
 
 //hacer transferencia
-export async function  httpTransferencia({})
+export async function  httpTransferencia({
+  Token,
+  setLoaded,
+  Tarjeta,
+  ConceptoPago,
+  CuentaBeneficiario,
+  Monto,
+  referencias
+})
 {
+  let headersToken = {...headers, "Authorization": `Bearer ${Token}`,}
+  console.log('trasfiriendo' , headersToken)
+  setLoaded(true);
   try {
-       let headersToken = {...headers, "Authorization": `Bearer ${Token}`,}
-      axios.post(endpoint.TRANSFERENCIA,
+     const response = await axios.post(endpoint.TRANSFERENCIA,
         {
-          Tarjeta:"0123456000557534",
+          Tarjeta:Tarjeta,
           MedioAcceso: "",
           TipoMedioAcceso:"",
-          ConceptoPago: "Prueba transferencia externa",
-          CuentaBeneficiario: "002180332600200185",
-          Monto: 150,
-          ReferenciaNumerica: "1234567"
+          ConceptoPago: ConceptoPago,
+          CuentaBeneficiario: CuentaBeneficiario,
+          Monto: Monto,
+          ReferenciaNumerica: parseFloat(referencias)
         },
         {
-
-          headersToken,
+          headers:headersToken,
         }
       )
+      return response.data;
+      console.log(response.data)
   } catch (error) {
-    console.log(error);
+    console.log('error ' . error);
+  }finally{
+    setLoaded(false);
   }
 }
 

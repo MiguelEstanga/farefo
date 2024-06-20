@@ -6,8 +6,10 @@ function Btn({
     evento,
     width=208,
     height=40,
+    disabled=false
 }) {
     return ( <TouchableOpacity
+        disabled={disabled}
         onPress={()=> evento()}
         style={
             {

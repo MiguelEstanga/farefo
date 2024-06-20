@@ -3,6 +3,8 @@ import Tranferir from "./Tranferir/Tranferir";
 import Monto from "./Monto/Monto";
 import Header from "../../component/Header";
 import Confirmacion from "./confitmacion/Confirmacion";
+import ConfirmacionPasword from "./ConfirmacionPasword";
+import Sucess from "./success/Sucess";
 
 const Tab = createNativeStackNavigator();
 function TabTranferencia() {
@@ -28,6 +30,19 @@ function TabTranferencia() {
         title:"Tranferencia",
         headerTintColor:"#D62B50"
       }}/>
+
+      <Tab.Screen name="Confirmacion_tranferencia" component={ConfirmacionPasword} options={{
+        headerTitleAlign:"center",
+        title:"Tranferencia",
+        headerTintColor:"#D62B50"
+      }}/>
+    
+    <Tab.Screen name="tranferenciaSuccess" component={Sucess} options={{
+        headerTitleAlign:"center",
+        title:"Tranferencia",
+        headerTintColor:"#D62B50"
+      }}/>
+     
     </Tab.Navigator>
   );
 }

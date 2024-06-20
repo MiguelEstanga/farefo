@@ -5,17 +5,24 @@ import agregarComas from "../../../Helpers/agregarComas";
 import { useContext, useEffect, useState } from "react";
 import { TranferenciaContext } from "../../../context/Tranferencia";
 import { LoginContext } from "../../../context/Login";
-import { httpComisiones } from "../../../api/Peticiones";
+import { httpComisiones, httpTransferencia } from "../../../api/Peticiones";
 import { TarjetaContext } from "../../../context/Tarjeta";
 import Table from "../../../component/Table";
 import { ScrollView } from "react-native-gesture-handler";
 import Btn from "../../../component/Btn";
+import Loaded from "../../../component/Loaded";
+import { useNavigation } from "@react-navigation/native";
 export default function Confirmacion() {
     const {tranferencia } =useContext(TranferenciaContext)
     const {tarjeta} = useContext(TarjetaContext)
     const {credenciales} = useContext(LoginContext)
     const [comision, setComision] = useState(0)
-
+    const [ivaPorcentaje, setIvaPorcentaje] = useState(0)
+    const [total, setTotal] = useState(0)
+    const [data, setData] = useState({})
+    const [disponible , setDisponible] = useState(false)
+    const [loaded, setLoaded] = useState(false)
+    const navigation = useNavigation();
     async function agregarComision(){
         const data = await httpComisiones({
             Token:credenciales.Token,
@@ -25,30 +32,61 @@ export default function Confirmacion() {
             ConceptoPago:tranferencia.concepto,
             Importe:tranferencia.monto,
         })
+        console.log( parseFloat(data.IvaComision))
+        if(parseFloat(data.Comision) === 0){
+            setComision(0)
+        }
 
-        setComision(data)
-        console.log('comision', data)   
+        if( parseFloat(data.Comision) !== 0){
+            setComision(tranferencia.monto / data.Comision)
+        }
+
+        if( parseFloat(data.IvaComision) !== 0){
+            setIvaPorcentaje(tranferencia.monto / data.IvaComision)
+        }
+
+        if( parseFloat(data.IvaComision) === 0){
+            setIvaPorcentaje(0)
+        }
+
+        
+        setData(data)
+        setTotal( parseFloat(tranferencia.monto) + parseFloat(data?.Comision) + parseFloat(data?.IvaComision) )
+        if( parseFloat(tarjeta.SaldoDisponible) < parseFloat(total)  ) setDisponible(true)
     }   
 
 
-    function handleTranferir(){
-        console.log('tranferir', tranferencia)
+    async function handleTranferir(){
+        navigation.navigate('Confirmacion_tranferencia')
+        //console.log('tranferir', credenciales.Token)
+        /**await httpTransferencia({ 
+            Token:credenciales.Token,
+            setLoaded:setLoaded,
+            Tarjeta:tarjeta.Tarjeta,
+            ConceptoPago:tranferencia.concepto,
+            CuentaBeneficiario:tranferencia.clabe,
+            Monto:tranferencia.monto,
+            referencias: parseInt( tranferencia.referencia )
+        }) */ 
     }
 
     
     useEffect(()=>{
-        agregarComision()
+       agregarComision()
+       console.log('sddss')
     },[])
     return (
         <View style={{
             backgroundColor:'#FFFFFF',
             height:'100%',
         }} >
+            {loaded && <Loaded/>}
+           
             <Titulo titulo={"Confirma tu transferencia"} />
             <View style={style.infoMonto} >
                 <Text style={{color:'#D62B50', fontSize:20 }} >Monto a transferir:</Text>
                 <View style={style.monto} > 
-                    <Text style={{color:'#2F3D6B' , fontSize:54}}>${agregarComas(tranferencia.monto)}</Text>
+                    <Text style={{color:'#2F3D6B' , fontSize:54}}>${agregarComas(parseFloat(tranferencia.monto))}</Text>
                 </View>
                
             </View>
@@ -56,20 +94,20 @@ export default function Confirmacion() {
             <View style={style.comision}>
                     <Table
                         color={'#FFFFFF'}
-                        titulo={`Comisión ${comision.Comision}%`}
-                        info={`${tranferencia.monto - comision.Comision}$`}
+                        titulo={`Comisión ${comision ?? "cargando ..."}%`}
+                        info={`${ parseFloat(data.Comision)}$`}
                     />
 
                     <Table
                         color={'#00000012'}
-                        titulo={`Iva comisión %`}
-                        info={`${comision.IvaComision}$`}
+                        titulo={`Iva comisión ${ivaPorcentaje}%`}
+                        info={`${parseFloat(data.IvaComision)}$`}
                     />
 
                     <Table
                         color={'#FFFFFF'}
                         titulo={`Total `}
-                        info={`$${tranferencia.monto - comision.Comision}`}
+                        info={`${ agregarComas( total) }`}
                     />
                 </View>
                 <View style={style.comision}>
@@ -137,8 +175,9 @@ export default function Confirmacion() {
                         width={180}
                     />
                      <Btn
-                        color={'#152559'}
-                        texto={"Confirmar"}
+                        disabled={disponible}
+                        color={disponible === true ? "#D1103A" : '#152559'}
+                        texto={ disponible === true ? "Saldo insuficiente" : "Confirmar"}
                         evento={ () => handleTranferir()}
                         width={190}
                     />
