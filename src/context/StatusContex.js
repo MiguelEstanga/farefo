@@ -30,7 +30,7 @@ function StatusProvider({children}) {
         }
       )
       .then((res) => {
-        console.log("aqui");
+        console.log("aqui esta");
         console.log(res.data)
         if(res.status == 200){
             res.data.DescripcionStatus === "INACTIVA" ? setStatus(false) : setStatus(true);
@@ -38,7 +38,7 @@ function StatusProvider({children}) {
         }
     
       })
-      .catch(error => setText("error al conectar con el servodor ("+error+")") )
+      .catch(error => console.log(error))
     }
     useEffect(()=> {
       handleStatus()

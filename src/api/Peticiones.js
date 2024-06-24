@@ -86,9 +86,10 @@ export async function httpComisiones({
         headers: headersToken,
       }
     )
-
-    return await response.data;
+    console.log('respuesta de la comision ')
     console.log(response.data)
+    return await response.data;
+    
   } catch (error) {
       console.log(error);
   }
@@ -130,6 +131,33 @@ export async function  httpTransferencia({
   }finally{
     setLoaded(false);
   }
+}
+
+export const httpTarjeta = async ({
+    Token,
+    usuario,
+
+  
+}) => {
+    let headersToken = {...headers, "Authorization": `Bearer ${Token}`,}
+     try {
+         const response = await axios.post(
+          endpoint.OBTENER_DATOS_DE_LA_TAJETA2,
+          {
+              IDSolicitud: "",
+              telefono: usuario.trim(),
+          },
+          {
+            headers: headersToken
+          }
+        );
+        return response.data
+        console.log('datos actulizado ')
+        console.log(response.data);
+     } catch (error) {
+        console.log(error);
+     }
+
 }
 
 

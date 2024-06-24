@@ -26,6 +26,7 @@ import Profile from "./src/Screen/MasOpciones/Profile";
 import { useNavigation } from "@react-navigation/native";
 import { MasContext } from "./src/context/Mas";
 import HeaderTitulo from "./src/component/HeaderTitulo";
+import Detalles from "./src/Screen/movimientos/Detalles";
 
 
 export default function Route() {
@@ -207,7 +208,18 @@ function NavegacionRourter() {
         }}
       />
 
-          
+      <Stak.Screen
+        name="DetallesMovimiento"
+        component={Detalles}
+        options={{
+          title: "Activar tarjeta",
+          headerTitleAlign: "center",
+          headerTintColor: "#D1103A",
+          headerTitleStyle: {
+            color: "#152559",
+          },
+        }}
+      /> 
 
        
 

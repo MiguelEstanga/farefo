@@ -5,23 +5,38 @@ import Btn from "../../../component/Btn";
 import { useNavigation } from "@react-navigation/native";
 import { useContext, useState } from "react";
 import { TranferenciaContext } from "../../../context/Tranferencia";
+import { ModalAlert } from "../../../component/Modal";
 
 export default function Tranferir() 
 {
-   
+    const [alert , setAlert] = useState(false)
     const {tranferencia , setTranferencia } =useContext(TranferenciaContext)
     const navegacion = useNavigation()
     const handle_navegacion = ()=>{
-        navegacion.navigate("Monto")
+        if(tranferencia?.nombre && tranferencia?.clabe && tranferencia?.alias){
+         // navegacion.navigate("Monto")
+           
+              navegacion.navigate("Monto")
+            
+        }
+        else {
+          setAlert(true)
+        }
+       // 
     }
   return (
     <View style={style.container}>
+      <ModalAlert
+          setmodal={setAlert}
+          modal={alert}
+          mensage="Por favor, complete el formulario"
+      />
       <Titulo titulo={"¿A quién deseas transferir?"} />
 
       <View  style={{ height:300 , alignItems:"center" , marginTop:30}} >
         <View style={style.input}>
           <InputText 
-           
+            number={true}
             label={"CLABE"} 
             eventoText={(text ) => { setTranferencia({...tranferencia , clabe:text}) }}
             password={false}

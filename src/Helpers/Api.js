@@ -5,6 +5,7 @@ export const URL={
 
 export const endpoint = {
     LOGIN:`${URL.UrlBase}LogIn/`,
+    OBTENER_DATOS_DE_LA_TAJETA2:`${URL.UrlBase}ObtenerDatosTarjeta`,
     OBTENER_DATOS_DE_LA_TAJETA:"ObtenerDatosTarjeta/",
     COMISION:`${URL.UrlBase}ConsultaComisionesSPEI/`,
     TRANSFERENCIA:`${URL.UrlBase}SPEIOutExterno/`,

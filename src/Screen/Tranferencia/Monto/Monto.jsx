@@ -6,21 +6,42 @@ import Btn from "../../../component/Btn";
 import { useContext, useState } from "react";
 import { TranferenciaContext } from "../../../context/Tranferencia";
 import { useNavigation } from "@react-navigation/native";
+import { ModalAlert } from "../../../component/Modal";
 function Monto() {
   const navegacion = useNavigation();
   const { setTranferencia , tranferencia } = useContext(TranferenciaContext);
+  const [alert , setAlert] = useState(false);
+  function onPressAvanzar() {
+    if( tranferencia?.monto && tranferencia?.concepto && tranferencia?.referencia) {
+      navegacion.navigate("Confirmacion");
+    }else{
+      setAlert(true);
+    }
+    
+  }
   return (
-    <View>
+    <View
+      style={{
+        backgroundColor:"#00000012",
+        height:"100%",
+      }}
+    >
+      <ModalAlert
+        modal={alert}
+        setmodal={setAlert}
+        mensage={'Rellene los campos'}
+      />
       <View>
-        <Titulo titulo={"¿Cuánto deseas transferir?"} />
+        <Titulo titulo={"¿Cuánto deseas transferir?"}  colorFondo="#00000012" />
       </View>
-      <View style={{ justifyContent: "center", alignItems: "center" }}>
+      <View style={{ justifyContent: "center", alignItems: "center" , marginBottom:10 }}>
         <CreditoInfo />
       </View>
-      <View style={{ alignItems: "center" }}>
+      <View style={{ alignItems: "center"  }}>
         <View style={style.input}>
           <InputText 
             label={"Monto"} 
+            number={true}
             eventoText={(Monto) =>  setTranferencia({...tranferencia , monto:Monto})}
             initPassword={false}
             password={false}
@@ -37,6 +58,8 @@ function Monto() {
         <View style={style.input}>
           <InputText 
             label={"Referencia"} 
+             number={true}
+             longitud={7}
             eventoText={(referencia) => setTranferencia({...tranferencia , referencia:referencia})}
             initPassword={false}
             password={false}
@@ -50,7 +73,7 @@ function Monto() {
                 </Text>
             </TouchableOpacity>
             <TouchableOpacity
-                onPress={() => { navegacion.navigate("Confirmacion") }}
+                onPress={() =>  onPressAvanzar() }
                 style={{ justifyContent:"center" , alignItems:"center", width:"40%" , height:40 , borderRadius:8 , backgroundColor:"#152559" } } >
                 <Text style={{color:"#FFFFFF" , fontSize:16 }}  >
                 Continuar

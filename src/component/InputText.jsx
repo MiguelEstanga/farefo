@@ -3,7 +3,7 @@ import { View, TextInput, Text, TouchableOpacity, Image } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
 function InputText({
   label,
-  setText,
+
   subtitulo = false,
   textSubtitulo,
   placeholder,

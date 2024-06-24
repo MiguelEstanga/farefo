@@ -1,9 +1,11 @@
-import { createContext, useState } from "react";
+import { createContext, useState,useEffect } from "react";
 
 export const TarjetaContext =  createContext()
 function TarjetaProvider({children}) {
     const [tarjeta , setTarjeta] = useState({})
-
+    useEffect(()=>{
+        console.log(tarjeta)
+    },[tarjeta])
     return ( 
     <TarjetaContext.Provider
         value={{

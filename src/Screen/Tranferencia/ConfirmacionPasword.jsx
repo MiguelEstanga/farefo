@@ -8,6 +8,7 @@ import { TarjetaContext } from '../../context/Tarjeta';
 import { TranferenciaContext } from '../../context/Tranferencia';
 import { httpTransferencia } from '../../api/Peticiones';
 import Loaded from '../../component/Loaded';
+import HeaderRegresar from '../../component/HeaderRegresar';
 export default function ConfirmacionPasword() {
     const [password , setPassword] = useState('')
     const navegacion = useNavigation()
@@ -16,6 +17,7 @@ export default function ConfirmacionPasword() {
     const {tarjeta} = useContext(TarjetaContext)
     const {tranferencia , setTranferenciaDatosExitoso} = useContext(TranferenciaContext)  
     const [loaded, setLoaded] = useState(false);
+    const [textError , setTextError] = useState('');
     useEffect( () => {
         console.log( 'password', password) 
     },[password])
@@ -23,6 +25,7 @@ export default function ConfirmacionPasword() {
     const Confirmacion = async () =>{
         if(credenciales.password !== password){
             setModal(true)
+            setTextError('Contraseña incorrecta ')
         }
        
         if(credenciales.password === password){
@@ -39,6 +42,11 @@ export default function ConfirmacionPasword() {
                 if( response.CodRespuesta === "0000"){
                     setTranferenciaDatosExitoso(response)
                     navegacion.navigate('tranferenciaSuccess')
+                }else{
+                    setModal(true)
+                    setTextError(
+                        response.DescRespuesta
+                    )
                 }
             console.log("correcto" , response)
         }
@@ -51,11 +59,15 @@ export default function ConfirmacionPasword() {
             {
                 loaded ? <Loaded/> : null
             }
-             
+            <HeaderRegresar
+                titulo='Transferencia'
+                color='#152559'
+                flechaColor='#D1103A'
+            />
             <ModalAlert
                 setmodal={setModal}
                 modal={modal}
-                mensage={"La contraseña introducida no es correcta"}
+                mensage={textError}
             />
            <ConfimacionPasswordLayout
                confirmacion={Confirmacion}

@@ -31,15 +31,16 @@ function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
   const [cth, setCth] = useState(false);
-  const {setCredenciales , credenciales } = useContext(LoginContext);
+  const {setCredenciales , credenciales , setTimeStart , setTimeEnd  , setLogin} = useContext(LoginContext);
   const {setTarjeta } = useContext(TarjetaContext);
   const [loaded, setLoaded] = useState(false);
   const [textError, setTextError] = useState("");
   const [modal, setModal] = useState(false);
   const [visible, setVisible] = useState(true);
+  const [time , setTime] = useState({})
   const screenHeight = Dimensions.get('window').height;
   const screenWidth = Dimensions.get('window').width;
-
+  
   useEffect(() => {
     
     const key = CryptoJS.enc.Utf8.parse('3rd6sl2u325b13f8ioh6tn11');
@@ -59,8 +60,9 @@ function Login() {
   }, [error, loaded]);
 
   useEffect(() => {
+   
     setTimeout(() => {
-     
+      
       setVisible(false);
     }, 5000); // Retardo de 3 segundos
   }, []);
@@ -83,14 +85,14 @@ function Login() {
         }
       )
       .then((res) => {
-        
+        console.log('tarjeta res')
         console.log(res.data);
        
-        if( res.data.CodRespuesta === "9999"){
+        if( res?.data.CodRespuesta === "9999"){
           setModal(true);
-          console.log(res.data)
+          console.log(res?.data)
           setTextError(
-              res.data.DescRespuesta
+              res?.data.DescRespuesta
           );
         }
          
@@ -105,6 +107,7 @@ function Login() {
       
       });
   };
+
   const HandleLogin = async () => {
      let loginStatus = await httpLogin({
         usuario:usuario.trim(),
@@ -116,9 +119,10 @@ function Login() {
       console.log(loginStatus)
       
       if(loginStatus.status === true){
-        setCredenciales({ ...loginStatus.data, password: password.trim() });
-        tarjetaInfo(usuario.trim());
-       // navegacion.navigate("HOMES");
+          setLogin(true)
+          setCredenciales({ ...loginStatus.data, password: password.trim() });
+          tarjetaInfo(usuario.trim());
+         // navegacion.navigate("HOMES");
       }
      
   }

@@ -8,7 +8,7 @@ function CreditoInfo() {
   
    useEffect(() => {
     
-   }, []) 
+   }, [tarjeta]) 
 
    function agregarComas(numero = 0) {
     const cadenaNumero = numero;
@@ -56,10 +56,14 @@ const style = StyleSheet.create({
   container: {
     padding: 10,
     height: 142,
-    width:  screenWidth < 385 ? "95%" : 385,
+    width:  screenWidth < 385 ? "90%" : 385,
     marginTop: 20,
-    backgroundColor: "#E5E7ED",
+    backgroundColor: "#FFFFFF",
     borderRadius: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 5, height: 5 },
+    shadowOpacity: 0.5,
+    shadowRadius: 5,
   },
   Text: {
     color: "#D62B50",

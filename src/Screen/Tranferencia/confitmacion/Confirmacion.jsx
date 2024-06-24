@@ -1,4 +1,4 @@
-import { View , Text } from "react-native";
+import { View , Text, SafeAreaView } from "react-native";
 import Titulo from "../../../component/Titulo";
 import { StyleSheet } from "react-native";
 import agregarComas from "../../../Helpers/agregarComas";
@@ -12,6 +12,7 @@ import { ScrollView } from "react-native-gesture-handler";
 import Btn from "../../../component/Btn";
 import Loaded from "../../../component/Loaded";
 import { useNavigation } from "@react-navigation/native";
+import HeaderRegresar from "../../../component/HeaderRegresar";
 export default function Confirmacion() {
     const {tranferencia } =useContext(TranferenciaContext)
     const {tarjeta} = useContext(TarjetaContext)
@@ -23,6 +24,7 @@ export default function Confirmacion() {
     const [disponible , setDisponible] = useState(false)
     const [loaded, setLoaded] = useState(false)
     const navigation = useNavigation();
+    
     async function agregarComision(){
         const data = await httpComisiones({
             Token:credenciales.Token,
@@ -58,56 +60,72 @@ export default function Confirmacion() {
 
     async function handleTranferir(){
         navigation.navigate('Confirmacion_tranferencia')
-        //console.log('tranferir', credenciales.Token)
-        /**await httpTransferencia({ 
-            Token:credenciales.Token,
-            setLoaded:setLoaded,
-            Tarjeta:tarjeta.Tarjeta,
-            ConceptoPago:tranferencia.concepto,
-            CuentaBeneficiario:tranferencia.clabe,
-            Monto:tranferencia.monto,
-            referencias: parseInt( tranferencia.referencia )
-        }) */ 
+       
     }
 
     
     useEffect(()=>{
        agregarComision()
-       console.log('sddss')
+       console.log('comision')
     },[])
     return (
-        <View style={{
+        <SafeAreaView>
+             <View style={{
             backgroundColor:'#FFFFFF',
             height:'100%',
-        }} >
+        }}> 
+            <HeaderRegresar
+                titulo="Transferencia"
+                color="#152559"
+                flechaColor="#D1103A"
+            />
             {loaded && <Loaded/>}
-           
-            <Titulo titulo={"Confirma tu transferencia"} />
+            <Text
+                style={{
+                    fontSize:20,
+                    color:'#152559',
+                    fontWeight:'600',
+                    paddingLeft:20,
+                }}
+            >
+                  Confirma tu transferencia
+            </Text>
+            
             <View style={style.infoMonto} >
-                <Text style={{color:'#D62B50', fontSize:20 }} >Monto a transferir:</Text>
+                <Text style={{color:'#D62B50', fontSize:20, fontWeight:"400" }} >Monto a transferir:</Text>
                 <View style={style.monto} > 
-                    <Text style={{color:'#2F3D6B' , fontSize:54}}>${agregarComas(parseFloat(tranferencia.monto))}</Text>
+                    <Text 
+                      style={{
+                        color:'#2F3D6B', 
+                        fontSize:54,
+                        height:74,
+                    }}>
+                            ${agregarComas(parseFloat(tranferencia.monto))}
+                    </Text>
                 </View>
                
             </View>
-            <ScrollView>
-            <View style={style.comision}>
+            <ScrollView >
+                 <View style={style.comision}>
                     <Table
                         color={'#FFFFFF'}
                         titulo={`Comisión ${comision ?? "cargando ..."}%`}
                         info={`${ parseFloat(data.Comision)}$`}
+                        infoAlinacion="right"
                     />
 
                     <Table
                         color={'#00000012'}
                         titulo={`Iva comisión ${ivaPorcentaje}%`}
                         info={`${parseFloat(data.IvaComision)}$`}
+                        infoAlinacion="right"
                     />
 
                     <Table
                         color={'#FFFFFF'}
                         titulo={`Total `}
                         info={`${ agregarComas( total) }`}
+                        infoAlinacion="right"
                     />
                 </View>
                 <View style={style.comision}>
@@ -172,30 +190,32 @@ export default function Confirmacion() {
                         color={'#D1103A'}
                         texto={"Regresar"}
                         evento={ agregarComision}
-                        width={180}
+                        width={160}
                     />
                      <Btn
                         disabled={disponible}
                         color={disponible === true ? "#D1103A" : '#152559'}
                         texto={ disponible === true ? "Saldo insuficiente" : "Confirmar"}
                         evento={ () => handleTranferir()}
-                        width={190}
+                        width={160}
                     />
                 </View>
             </ScrollView>
                
         </View>
+        </SafeAreaView>
+       
     )
 }
 
 const style = StyleSheet.create({
     btn:{
-        width:'100%',
-        
+        width:'90%',
+       
         display:'flex',
         flexDirection:'row',
         justifyContent:'space-between',
-        gap:5,
+        gap:1,
         padding:10,
         width:'100%',
         alignItems:'center',
@@ -206,7 +226,6 @@ const style = StyleSheet.create({
       borderRadius:8,
       height:100,
       marginTop:20,
-      marginBottom:20,
       marginLeft:20,
       marginRight:20,
     },

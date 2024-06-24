@@ -5,7 +5,8 @@ function Table({
     titulo,
     info,
     btnCopiar = false,
-    setCopia
+    setCopia,
+    infoAlinacion= 'left'
 }) {
     const copyToClipboard = () => {
         Clipboard.setString(info);
@@ -30,7 +31,14 @@ function Table({
             </Text>
         </View>
         <View style={style.conten} >
-            <Text style={style.info} >
+            <Text style={{
+                color:"#444444",
+                fontSize:14,
+                fontWeight:'400',
+                textAlign:infoAlinacion,
+                paddingRight:33,
+                width:"100%",
+            }} >
                {info}
             </Text>
             {
@@ -66,7 +74,9 @@ const style = StyleSheet.create({
         color:"#444444",
         fontSize:14,
         fontWeight:'400',
-        textAlign:'left'
+        textAlign:'right',
+        borderWidth:1,
+        width:"100%",
     }
 })
 export default Table;

@@ -24,6 +24,7 @@ export default function ConfimacionPasswordLayout(
             </Text>
             <View style={styles.formulario} >
                 <InputText
+                    label='Contraseña'
                     password={true}
                     placeholder='Contraseña'
                     placeholderTextColor='#444444'
@@ -69,8 +70,8 @@ const styles = StyleSheet.create({
     },
 
     titulo:{
-        fontSize: 15,
-      
+        fontSize: 14,
+        color: '#444444',
         width: "100%",
         padding: 10,
        

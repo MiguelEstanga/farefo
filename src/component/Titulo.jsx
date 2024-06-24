@@ -8,7 +8,8 @@ function Titulo(
         fontSize=24 , 
         fontWeight='500', 
         marginTop=0,
-        marginBottom=0
+        marginBottom=0,
+        colorFondo = ""
     }
 ) {
     return ( <View
@@ -18,6 +19,7 @@ function Titulo(
             marginTop:marginTop,
             marginBottom:marginBottom,
            
+          
         }}
     >
         <Text
