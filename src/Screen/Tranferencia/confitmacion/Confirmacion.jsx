@@ -110,21 +110,21 @@ export default function Confirmacion() {
                     <Table
                         color={'#FFFFFF'}
                         titulo={`Comisión ${comision ?? "cargando ..."}%`}
-                        info={`${ parseFloat(data.Comision)}$`}
+                        info={`$${ parseFloat(data.Comision)}`}
                         infoAlinacion="right"
                     />
 
                     <Table
                         color={'#00000012'}
                         titulo={`Iva comisión ${ivaPorcentaje}%`}
-                        info={`${parseFloat(data.IvaComision)}$`}
+                        info={`$${parseFloat(data.IvaComision)}`}
                         infoAlinacion="right"
                     />
 
                     <Table
                         color={'#FFFFFF'}
                         titulo={`Total `}
-                        info={`${ agregarComas( total) }`}
+                        info={`$${ agregarComas( total) }`}
                         infoAlinacion="right"
                     />
                 </View>
@@ -170,7 +170,7 @@ export default function Confirmacion() {
 
                     <Table
                         color={'#00000012'}
-                        titulo={`CABLE`}
+                        titulo={`CLABE`}
                         info={`${tranferencia.clabe }`}
                     />
                     <Table
@@ -187,17 +187,21 @@ export default function Confirmacion() {
                 </View>
                 <View style={style.btn}>    
                     <Btn
+                        
                         color={'#D1103A'}
                         texto={"Regresar"}
-                        evento={ agregarComision}
-                        width={160}
+                        evento={ () => navigation.goBack()}
+                        width={'50%'}
+                        height={32}
                     />
                      <Btn
+                        evento={ () => handleTranferir()}
                         disabled={disponible}
                         color={disponible === true ? "#D1103A" : '#152559'}
                         texto={ disponible === true ? "Saldo insuficiente" : "Confirmar"}
-                        evento={ () => handleTranferir()}
-                        width={160}
+                        
+                        width={"50%"}
+                        height={32}
                     />
                 </View>
             </ScrollView>

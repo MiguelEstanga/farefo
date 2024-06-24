@@ -61,9 +61,11 @@ const style = StyleSheet.create({
     backgroundColor: "#FFFFFF",
     borderRadius: 10,
     shadowColor: '#000',
-    shadowOffset: { width: 5, height: 5 },
-    shadowOpacity: 0.5,
-    shadowRadius: 5,
+    shadowOffset: { width: 10, height: 10 },
+    shadowRadius: 50,
+    shadowOpacity: 1,
+    elevation: 5,
+    
   },
   Text: {
     color: "#D62B50",

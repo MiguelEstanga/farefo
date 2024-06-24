@@ -103,17 +103,17 @@ export default function Detalles() {
                 <Table
                      color={'#FFFFFF'}
                      titulo={`Monto a transferir:`}
-                     info={`${tranfereciaDatosExitoso?.Monto ?? "no se encontro"} $`}
+                     info={` $${tranfereciaDatosExitoso?.Monto ?? "no se encontro"}`}
                 />
                 <Table
                      color={'#EDEEF1'}
-                     titulo={`Comisión ${comision}:`}
-                     info={`${data?.Comision ?? "no se encontro"} $`}
+                     titulo={`Comisión ${comision}%:`}
+                     info={`$${data?.Comision ?? "no se encontro"} `}
                 />
                 <Table
                      color={'#FFF'}
-                     titulo={`Iva comisión  ${ivaPorcentaje}:`}
-                     info={`${data?.data?.IvaComision ?? "no se encontro"} $`}
+                     titulo={`Iva comisión  ${ivaPorcentaje}%:`}
+                     info={` $${data?.data?.IvaComision ?? "no se encontro"}`}
                 />
                 <Table
                      color={'#EDEEF1'}

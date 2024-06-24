@@ -22,7 +22,7 @@ function Monto() {
   return (
     <View
       style={{
-        backgroundColor:"#00000012",
+        backgroundColor:"#fff",
         height:"100%",
       }}
     >
@@ -66,19 +66,38 @@ function Monto() {
           />
         </View>
       </View>
-      <View style={{ flexDirection: "row",  alignItems:"center", justifyContent:"center" , gap:10 }}>
-            <TouchableOpacity style={{ justifyContent:"center" , alignItems:"center", width:"40%" , height:40 , borderRadius:8 , backgroundColor:"#D1103A" } } >
-                <Text style={{color:"#FFFFFF" , fontSize:16 }}  >
-                    Regresar
-                </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-                onPress={() =>  onPressAvanzar() }
-                style={{ justifyContent:"center" , alignItems:"center", width:"40%" , height:40 , borderRadius:8 , backgroundColor:"#152559" } } >
-                <Text style={{color:"#FFFFFF" , fontSize:16 }}  >
-                Continuar
-                </Text>
-            </TouchableOpacity>
+      <View style={
+        {
+          width:'90%',
+       
+        display:'flex',
+        flexDirection:'row',
+        justifyContent:'space-between',
+        gap:1,
+        padding:10,
+        width:'100%',
+        alignItems:'center',
+        marginTop:40,
+        marginBottom:30,
+        }
+      }>
+             <Btn
+                 color={'#D1103A'}
+                 texto={"Regresar"}
+                 evento={ () => navegacion.goBack()}
+                 width={'50%'}
+                 height={32}
+             />
+              <Btn
+                        evento={ () =>  onPressAvanzar() }
+                        color={"#152559" }
+                        texto={"Confirmar"}
+                        
+                        width={"50%"}
+                        height={32}
+                    />
+           
+            
       </View>
     </View>
   );
