@@ -36,7 +36,9 @@ export default function Tranferir()
       <View  style={{ height:300 , alignItems:"center" , marginTop:30}} >
         <View style={style.input}>
           <InputText 
+
             number={true}
+            longitud={19}
             label={"CLABE"} 
             eventoText={(text ) => { setTranferencia({...tranferencia , clabe:text}) }}
             password={false}

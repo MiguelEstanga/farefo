@@ -35,7 +35,7 @@ export default function Detalles() {
         Importe:tranferencia.monto,
     })
     console.log('data')
-    console.log(data)
+    console.log(tranferencia)
     console.log( parseFloat(data.IvaComision))
     if(parseFloat(data.Comision) === 0){
         setComision(0)
@@ -46,7 +46,7 @@ export default function Detalles() {
     }
 
     if( parseFloat(data.IvaComision) !== 0){
-        setIvaPorcentaje(tranferencia.monto / data.IvaComision)
+        setIvaPorcentaje(tranferencia.monto / parseFloat(data.IvaComision))
     }
 
     if( parseFloat(data.IvaComision) === 0){
@@ -113,7 +113,7 @@ export default function Detalles() {
                 <Table
                      color={'#FFF'}
                      titulo={`Iva comisión  ${ivaPorcentaje}%:`}
-                     info={` $${data?.data?.IvaComision ?? "no se encontro"}`}
+                     info={` $${parseFloat(data?.IvaComision) ?? "no se encontro"}`}
                 />
                 <Table
                      color={'#EDEEF1'}
@@ -150,23 +150,23 @@ export default function Detalles() {
                 />
                  <Table
                      color={'#EDEEF1'}
-                     titulo={`Clabe:`}
-                     info={`${credenciales?.clabe ?? "no se encontro"}`}
+                     titulo={`CLABE:`}
+                     info={`${tranferencia.clabe}`}
                 />
                  <Table
                      color={'#FFF'}
                      titulo={`Estatus:`}
-                     info={``}
+                     info={`${tranfereciaDatosExitoso.Estado}`}
                 />
                  <Table
                      color={'#EDEEF1'}
                      titulo={`Clave de rastreo:`}
-                     info={``}
+                     info={`${tranfereciaDatosExitoso.ClaveRastreo}`}
                 />
                 <Table
                      color={'#FFF'}
                      titulo={`CEP:`}
-                     info={`Banxico`}
+                     info={`${tranfereciaDatosExitoso.CEP}`}
                 />
 
                 <View style={style.ceparador} ></View>

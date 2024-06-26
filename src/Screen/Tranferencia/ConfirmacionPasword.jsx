@@ -38,7 +38,8 @@ export default function ConfirmacionPasword() {
                     Monto:tranferencia.monto,
                     referencias: parseInt( tranferencia.referencia )
                 }) 
-
+            
+                console.log(response.data)
                 if( response.CodRespuesta === "0000"){
                     setTranferenciaDatosExitoso(response)
                     navegacion.navigate('tranferenciaSuccess')

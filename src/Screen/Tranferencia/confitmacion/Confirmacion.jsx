@@ -78,6 +78,7 @@ export default function Confirmacion() {
                 titulo="Transferencia"
                 color="#152559"
                 flechaColor="#D1103A"
+                coloHeader="#FFF"
             />
             {loaded && <Loaded/>}
             <Text

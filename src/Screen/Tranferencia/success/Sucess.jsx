@@ -15,6 +15,8 @@ export default function Sucess() {
      const navigation = useNavigation();
 
      async function actulizarSaldo() {
+        console.log('tarjeta' )
+        console.log(tranfereciaDatosExitoso)
         const response = await httpTarjeta({
                 Token:credenciales.token,
                 usuario:tarjeta.Telefono
@@ -125,7 +127,7 @@ export default function Sucess() {
                     }}
                 >
                     <Text style={{fontSize:12}} >Estatus de transferencia</Text>
-                    <Text style={style.textProceso}>En proceso </Text>
+                    <Text style={style.textProceso}>{tranfereciaDatosExitoso.Estado}</Text>
                 </View>
                 
                 <View 

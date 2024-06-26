@@ -8,7 +8,7 @@ export default function HeaderRegresar({
     flechaColor="#000",
     image = false,
     flecha = true,
-    coloHeader = "#EDEEF1"
+    coloHeader = "#FFF"
 }) {
    const navegacion  =  useNavigation()
   return (
@@ -17,7 +17,7 @@ export default function HeaderRegresar({
             backgroundColor:coloHeader,
             position:'relative',
             height:50,
-            marginTop:35,
+            marginTop:20,
             width:'100%',
             flexDirection:'row',
         }
