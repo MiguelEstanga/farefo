@@ -9,7 +9,7 @@ import { LoginContext } from "../../../context/Login";
 import { TarjetaContext } from "../../../context/Tarjeta";
 
 export default function Sucess() {
-    const {tranfereciaDatosExitoso} = useContext(TranferenciaContext)
+    const {tranfereciaDatosExitoso , tranferencia} = useContext(TranferenciaContext)
     const {credenciales } = useContext(LoginContext)
     const { tarjeta , setTarjeta } =  useContext(TarjetaContext)
      const navigation = useNavigation();
@@ -69,7 +69,7 @@ export default function Sucess() {
                         fontWeight:"300"
                     }}
                 >
-                    a {tranfereciaDatosExitoso.NombreBeneficiario}
+                    a {tranferencia?.alias ?? ""}
                 </Text>
             </View>
             <View style={style.detallesCompra} >
