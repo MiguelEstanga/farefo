@@ -8,7 +8,7 @@ import {
   NativeModules, Platform 
 } from "react-native";
 import InputText from "../../component/InputText";
-
+import * as Expo from 'expo';
 import Btn from "../../component/Btn";
 import { useNavigation } from "@react-navigation/native";
 import { useContext, useEffect, useState } from "react";
@@ -40,7 +40,7 @@ function Login() {
   const [time , setTime] = useState({})
   const screenHeight = Dimensions.get('window').height;
   const screenWidth = Dimensions.get('window').width;
-  
+  const [image, setImage] = useState(null);
   useEffect(() => {
     
     const key = CryptoJS.enc.Utf8.parse('3rd6sl2u325b13f8ioh6tn11');
@@ -58,9 +58,27 @@ function Login() {
   
      
   }, [error, loaded]);
+  /** 
+  const captureAndShareScreenshot = async () => {
+    console.log('cap')
+    const result = await Expo.ScreenCapture.captureAsync();
+    if (result) {
+      const imageUri = await Expo.FileSystem.saveImageAsync(result, 'screenshot.png');
+      setImage(imageUri);
+      const shareResult = await Expo.Share.shareAsync({
+        title: 'Captura de pantalla',
+        uri: imageUri,
+      });
+      if (shareResult.action === 'shared') {
+        console.log('¡Captura de pantalla compartida!');
+      }
+    }
+  };
+  */
+  
 
   useEffect(() => {
-   
+    
     setTimeout(() => {
       
       setVisible(false);
@@ -282,6 +300,7 @@ function Login() {
                             source={require("../../../assets/png/usuario.png")}
                           />
                         </View>
+                        
                         <Text
                           onPress={() => {
                             navegacion.navigate("TabRegistro");

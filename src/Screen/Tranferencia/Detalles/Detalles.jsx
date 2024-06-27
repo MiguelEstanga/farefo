@@ -141,7 +141,7 @@ export default function Detalles() {
                 <Table
                      color={'#EDEEF1'}
                      titulo={`Titular:`}
-                     info={`${credenciales?.NombreUsuario + " " + credenciales?.ApellidoPaterno ?? "no se encontro"}`}
+                     info={`${tranfereciaDatosExitoso.NombreBeneficiario}`}
                 />
                  <Table
                      color={'#FFF'}
@@ -176,7 +176,7 @@ export default function Detalles() {
                 <Table
                      color={'#EDEEF1'}
                      titulo={`Titular:`}
-                     info={`${credenciales?.NombreUsuario + " " + credenciales?.ApellidoPaterno ?? "no se encontro"}`}
+                     info={`${tarjeta?.Nombre}  ${tarjeta?.ApellidoPaterno ?? "no se encontro"}`}
                 />
                  <Table
                      color={'#FFF'}
