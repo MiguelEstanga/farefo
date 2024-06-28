@@ -35,7 +35,10 @@ function Monto() {
         <Titulo titulo={"¿Cuánto deseas transferir?"}  colorFondo="#00000012" />
       </View>
       <View style={{ justifyContent: "center", alignItems: "center" , marginBottom:10 }}>
-        <CreditoInfo />
+        <CreditoInfo
+            texCredito="Crédito actual"
+            textDisponible="Después de trasferenncia"
+        />
       </View>
       <View style={{ alignItems: "center"  }}>
         <View style={style.input}>
@@ -59,6 +62,9 @@ function Monto() {
           <InputText 
             label={"Referencia"} 
              number={true}
+             subtitulo={true}
+             colorSubtitulo="#444444"
+             textSubtitulo={'Escribe una referencia de personal. Máximo 7 caracteres'}
              longitud={7}
             eventoText={(referencia) => setTranferencia({...tranferencia , referencia:referencia})}
             initPassword={false}

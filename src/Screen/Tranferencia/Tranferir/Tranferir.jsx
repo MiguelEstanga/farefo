@@ -38,8 +38,9 @@ export default function Tranferir()
           <InputText 
 
             number={true}
-            longitud={19}
-            label={"CLABE"} 
+            longitud={18}
+            label={"Clabe"} 
+
             eventoText={(text ) => { setTranferencia({...tranferencia , clabe:text}) }}
             password={false}
             initPassword={false}

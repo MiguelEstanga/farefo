@@ -10,6 +10,7 @@ import Btn from "../../../component/Btn";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import HeaderRegresar from "../../../component/HeaderRegresar";
 import { useNavigation } from "@react-navigation/native";
+import mostrarUltimosDigitosTarjeta from "../../../Helpers/ocultarDigitos";
 
 
 const windowWidth = Dimensions.get('window').width;
@@ -150,8 +151,8 @@ export default function Detalles() {
                 />
                  <Table
                      color={'#EDEEF1'}
-                     titulo={`CLABE:`}
-                     info={`${tranferencia.clabe}`}
+                     titulo={`Clabe:`}
+                     info={`${mostrarUltimosDigitosTarjeta(tranferencia.clabe)}`}
                 />
                  <Table
                      color={'#FFF'}
@@ -175,7 +176,7 @@ export default function Detalles() {
                 </Text>
                 <Table
                      color={'#EDEEF1'}
-                     titulo={`Titular:`}
+                     titulo={`Alias:`}
                      info={`${tarjeta?.Nombre}  ${tarjeta?.ApellidoPaterno ?? "no se encontro"}`}
                 />
                  <Table
@@ -228,7 +229,8 @@ const style = StyleSheet.create({
         color:"#D1103A",
         fontSize:17,
         fontWeight:"bold",
-        marginBottom:10,
+        position:'relative',
+        top:10,
         marginTop:10,
         paddingLeft:15,
         backgroundColor:"#FFF",

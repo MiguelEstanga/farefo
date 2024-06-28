@@ -13,6 +13,7 @@ import Btn from "../../../component/Btn";
 import Loaded from "../../../component/Loaded";
 import { useNavigation } from "@react-navigation/native";
 import HeaderRegresar from "../../../component/HeaderRegresar";
+import mostrarUltimosDigitosTarjeta from "../../../Helpers/ocultarDigitos";
 export default function Confirmacion() {
     const {tranferencia } =useContext(TranferenciaContext)
     const {tarjeta} = useContext(TarjetaContext)
@@ -83,7 +84,7 @@ export default function Confirmacion() {
             {loaded && <Loaded/>}
             <Text
                 style={{
-                    fontSize:20,
+                    fontSize:26,
                     color:'#152559',
                     fontWeight:'600',
                     paddingLeft:20,
@@ -166,13 +167,13 @@ export default function Confirmacion() {
                     <Table
                         color={'#FFFFFF'}
                         titulo={`Titular`}
-                        info={`${tranferencia.nombre}`}
+                        info={`${tranferencia.alias}`}
                     />
 
                     <Table
                         color={'#00000012'}
-                        titulo={`CLABE`}
-                        info={`${tranferencia.clabe }`}
+                        titulo={`Clabe`}
+                        info={`${mostrarUltimosDigitosTarjeta(tranferencia.clabe) }`}
                     />
                     <Table
                         color={'#FFFFFF'}

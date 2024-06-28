@@ -3,7 +3,10 @@ import {useContext, useEffect} from 'react'
 import { TarjetaContext } from "../context/Tarjeta";
 import { Dimensions } from 'react-native';  
 const screenWidth = Dimensions.get('window').width;
-function CreditoInfo() {
+function CreditoInfo({
+  texCredito = 'Crédito',
+  textDisponible = 'Disponible'
+}) {
    const {tarjeta} = useContext(TarjetaContext)
   
    useEffect(() => {
@@ -34,11 +37,11 @@ function CreditoInfo() {
       <Text style={style.Text}>Tu crédito</Text>
       <View style={style.contenedor}>
         <View style={style.disponible}>
-          <Text style={style.text}>Crédito</Text>
+          <Text style={style.text}>{texCredito}</Text>
           <Text style={style.numero}>${agregarComas(tarjeta.LimiteCredito)}</Text>
         </View>
         <View style={style.disponible2}>
-          <Text style={style.text}>Disponible</Text>
+          <Text style={style.text}>{textDisponible}</Text>
           <Text style={style.numero}>${agregarComas(tarjeta.SaldoDisponible)}</Text>
         </View>
       </View>
@@ -56,7 +59,7 @@ const style = StyleSheet.create({
   container: {
     padding: 10,
     height: 142,
-    width:  screenWidth < 385 ? "90%" : 385,
+    width:  screenWidth < 385 ? "95%" : 385,
     marginTop: 20,
     backgroundColor: "#FFFFFF",
     borderRadius: 10,
@@ -88,10 +91,11 @@ const style = StyleSheet.create({
     marginLeft: 20,
   },
   text: {
-    fontSize: 15,
+    fontSize: screenWidth < 385 ? 12 : 15,
     color: "#8B8B8B",
     fontWeight: "300",
-    width: "50%",
+    width: "100%",
+   
   },
 });
 export default CreditoInfo;

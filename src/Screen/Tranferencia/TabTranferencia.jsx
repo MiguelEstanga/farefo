@@ -22,7 +22,7 @@ function TabTranferencia() {
       <Tab.Screen name="Monto" component={Monto} 
       options={{
         headerTitleAlign:"center",
-        title:"Tranferencia",
+        title:"Transferencia",
         headerTintColor:"#152559"
       }}/>
 

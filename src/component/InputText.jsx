@@ -5,9 +5,10 @@ function InputText({
   label,
 
   subtitulo = false,
-  textSubtitulo,
+  textSubtitulo ,
   placeholder,
   password = false,
+  colorSubtitulo='#152559',
   initPassword = true,
   eventoText,
   number = false,
@@ -42,10 +43,11 @@ function InputText({
       {subtitulo == true ? (
         <Text
           style={{
-            color: "#152559",
-            fontSize: 12,
+            color: colorSubtitulo,
+            fontSize: 11,
             fontWeight: "400",
             marginBottom: 5,
+            
           }}
         >
           {textSubtitulo}
