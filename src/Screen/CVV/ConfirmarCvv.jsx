@@ -126,6 +126,7 @@ function ConfirmarCvv() {
         }}
       >
         <InputText
+          value={password}
           label={"Contraseña"}
           placeholder={"******"}
           password={true}

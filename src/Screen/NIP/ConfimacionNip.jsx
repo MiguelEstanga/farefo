@@ -121,6 +121,7 @@ function ConfirmacionNip() {
         }}
       >
         <InputText
+          value={password}
           label={"Contraseña"}
           placeholder={"******"}
           password={true}

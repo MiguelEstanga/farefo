@@ -116,6 +116,7 @@ function CrearPassword() {
       <View style={{ alignItems: "center", width: "100%", borderEndWidth: 1 }}>
         <View>
           <InputText
+            value={password}
             password={true}
             label={"Contraseña"}
             eventoText={checkPassword}
@@ -178,6 +179,7 @@ function CrearPassword() {
         </View>
         <View style={{ marginTop: 20 }}>
           <InputText
+            value={chequeo}
             password={true}
             label={"Confirmar Contraseña"}
             eventoText={chequeo}

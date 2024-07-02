@@ -112,14 +112,14 @@ export default function Confirmacion() {
                     <Table
                         color={'#FFFFFF'}
                         titulo={`Comisión ${comision ?? "cargando ..."}%`}
-                        info={`$${ parseFloat(data.Comision)}`}
+                        info={`$${ agregarComas(parseFloat(data.Comision))}`}
                         infoAlinacion="right"
                     />
 
                     <Table
                         color={'#00000012'}
                         titulo={`Iva comisión ${ivaPorcentaje}%`}
-                        info={`$${parseFloat(data.IvaComision)}`}
+                        info={`$${agregarComas(parseFloat(data.IvaComision))}`}
                         infoAlinacion="right"
                     />
 
@@ -149,7 +149,7 @@ export default function Confirmacion() {
 
                     <Table
                         color={'#00000012'}
-                        titulo={`Vigencia`}
+                        titulo={`Referencia`}
                         info={`${tranferencia.referencia }`}
                     />
 

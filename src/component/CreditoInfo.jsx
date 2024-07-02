@@ -1,36 +1,57 @@
 import { View, Text, StyleSheet } from "react-native";
-import {useContext, useEffect} from 'react'
+import {useContext, useEffect, useState} from 'react'
 import { TarjetaContext } from "../context/Tarjeta";
 import { Dimensions } from 'react-native';  
+import { TranferenciaContext } from "../context/Tranferencia";
 const screenWidth = Dimensions.get('window').width;
 function CreditoInfo({
   texCredito = 'Crédito',
-  textDisponible = 'Disponible'
+  textDisponible = 'Disponible',
+  esMonto = false,
 }) {
    const {tarjeta} = useContext(TarjetaContext)
-  
+   const {tranferencia , setAvanzar} = useContext(TranferenciaContext)
+   const [despuestDeLaTranferencia , setdespuestDeLaTranferencia] = useState('0')
    useEffect(() => {
-    
-   }, [tarjeta]) 
-
-   function agregarComas(numero = 0) {
-    const cadenaNumero = numero;
-    
-    const parteEntera = cadenaNumero.split('.')[0]
-    const parteDesimal = cadenaNumero.split('.')[1] ?? '00'
-    const grupos = [];
-    let grupoActual = '';
-    for (let i = parteEntera.length - 1; i >= 0; i--) {
-        grupoActual = cadenaNumero[i] + grupoActual;
-        if (grupoActual.length === 3 || i === 0) {
-            grupos.unshift(grupoActual);
-            grupoActual = '' ;
-        }
+    if(tranferencia.monto === '0' || tranferencia.monto.length === 0 ){
+      setdespuestDeLaTranferencia('0')
+    }else{
+      setdespuestDeLaTranferencia(  tarjeta.SaldoDisponible - tranferencia.monto   ) 
+      console.log(typeof despuestDeLaTranferencia.toString() )
+    }
+    if( parseInt(tarjeta.SaldoDisponible) < parseInt(tranferencia.monto)){
+      setAvanzar(true)
+      setdespuestDeLaTranferencia("0")
+    }else{
+      setAvanzar(false)
     }
     
-    const parseSifra = `${grupos.join(',')}.${parteDesimal}`
-    // Une los grupos con comas y devuelve el resultado
-    return parseSifra ;
+   }, [tarjeta, tranferencia.monto]) 
+
+
+  function agregarComas(numero = 0) {
+    const cadenaNumero = numero.toString();
+    if (cadenaNumero.length === 0) {
+      cadenaNumero = "0";
+    }
+  
+    const partes = cadenaNumero.split(".");
+    const parteEntera = partes[0];
+    let parteDecimal = partes[1] || "00";
+    // Redondear y rellenar la parte decimal
+    parteDecimal = parteDecimal.slice(0, 2).padEnd(2, "0");
+    const grupos = [];
+    let grupoActual = "";
+    for (let i = parteEntera.length - 1; i >= 0; i--) {
+      grupoActual = parteEntera[i] + grupoActual;
+      if (grupoActual.length === 3 || i === 0) {
+        grupos.unshift(grupoActual);
+        grupoActual = "";
+      }
+    }
+  
+    const resultado = grupos.join(",") + "." + parteDecimal;
+    return resultado;
   }
   return (
     <View style={style.container}>
@@ -38,11 +59,29 @@ function CreditoInfo({
       <View style={style.contenedor}>
         <View style={style.disponible}>
           <Text style={style.text}>{texCredito}</Text>
-          <Text style={style.numero}>${agregarComas(tarjeta.LimiteCredito)}</Text>
+          <Text style={style.numero}>
+            ${ 
+              esMonto === false ?  
+              agregarComas(tarjeta.LimiteCredito) : 
+              agregarComas(tarjeta.SaldoDisponible)
+             }
+          </Text>
         </View>
         <View style={style.disponible2}>
           <Text style={style.text}>{textDisponible}</Text>
-          <Text style={style.numero}>${agregarComas(tarjeta.SaldoDisponible)}</Text>
+          <Text style={{
+             fontSize:  screenWidth * 0.05,
+             color: parseFloat(tarjeta.SaldoDisponible) < parseFloat(tranferencia.monto) ? "#2F3D6":"#2F3D6B",
+             fontWeight:'600',
+             marginTop:4,
+             fontSize: parseFloat(tarjeta.SaldoDisponible) < parseFloat(tranferencia.monto)  ?  25 : 25,
+          }}>
+            ${
+              esMonto === false ?
+              agregarComas(tarjeta.SaldoDisponible):
+              agregarComas(despuestDeLaTranferencia.toString())
+             }
+           </Text>
         </View>
       </View>
     </View>

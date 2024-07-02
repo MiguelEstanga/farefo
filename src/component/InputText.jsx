@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { View, TextInput, Text, TouchableOpacity, Image } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
+import { TranferenciaContext } from "../context/Tranferencia";
 function InputText({
   label,
-
+  value="",
   subtitulo = false,
   textSubtitulo ,
   placeholder,
@@ -16,9 +17,10 @@ function InputText({
 }) {
   const [visible , setVisible] = useState(initPassword)
   const [values , setValue] = useState('')
+  const {tranferencia} = useContext(TranferenciaContext)
   
 
-  useEffect(()=> {} , [visible])
+  useEffect(()=> {} , [visible ,tranferencia ])
   const handle_visible =( ) => {
     setVisible(!visible)
   
@@ -81,6 +83,7 @@ function InputText({
         )}
 
         <TextInput
+          value={value ?? ''}
           placeholder={placeholder}
           onChange={(event) => eventoText(event.nativeEvent.text) }
           secureTextEntry={visible}

@@ -24,6 +24,7 @@ export default function ConfimacionPasswordLayout(
             </Text>
             <View style={styles.formulario} >
                 <InputText
+                    value={password}
                     label='Contraseña'
                     password={true}
                     placeholder='Contraseña'

@@ -6,7 +6,8 @@ function Table({
     info,
     btnCopiar = false,
     setCopia,
-    infoAlinacion= 'left'
+    infoAlinacion= 'left',
+    colorTextTitle = '#444444',
 }) {
     const copyToClipboard = () => {
         Clipboard.setString(info);
@@ -32,7 +33,7 @@ function Table({
         </View>
         <View style={style.conten} >
             <Text style={{
-                color:"#444444",
+                color:colorTextTitle,
                 fontSize:14,
                 fontWeight:'400',
                 textAlign:infoAlinacion,

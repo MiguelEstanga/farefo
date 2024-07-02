@@ -107,6 +107,7 @@ function Telefono() {
                 label={''}
                 initPassword={false}
                 password={false}
+                value={telefono}
                 eventoText={setTelefono}
                 number={true}
                 longitud={10}

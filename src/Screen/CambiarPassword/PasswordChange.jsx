@@ -112,6 +112,7 @@ function Telefono() {
                 label={''}
                 password={false}
                 eventoText={setTelefono}
+                value={telefono}
                 longitud={10}
                 number={true}
             />

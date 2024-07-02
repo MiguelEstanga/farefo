@@ -11,14 +11,15 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import HeaderRegresar from "../../../component/HeaderRegresar";
 import { useNavigation } from "@react-navigation/native";
 import mostrarUltimosDigitosTarjeta from "../../../Helpers/ocultarDigitos";
-
+import SepararDigitos from "../../../Helpers/SepararDisgitos";
+import agregarComas from  "../../../Helpers/agregarComas"
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 export default function Detalles() {
-  const  {tranfereciaDatosExitoso , tranferencia ,setTranferencia } =  useContext(TranferenciaContext)
-  const  {credenciales} = useContext(LoginContext)
-  const  {tarjeta} = useContext(TarjetaContext)
+  const {tranfereciaDatosExitoso , tranferencia ,setTranferencia } =  useContext(TranferenciaContext)
+  const {credenciales} = useContext(LoginContext)
+  const {tarjeta} = useContext(TarjetaContext)
   const navigation = useNavigation();
   const [comision, setComision] = useState(0)
   const [ivaPorcentaje, setIvaPorcentaje] = useState(0)
@@ -35,9 +36,6 @@ export default function Detalles() {
         ConceptoPago:tranferencia.concepto,
         Importe:tranferencia.monto,
     })
-    console.log('data')
-    console.log(tranferencia)
-    console.log( parseFloat(data.IvaComision))
     if(parseFloat(data.Comision) === 0){
         setComision(0)
     }
@@ -60,6 +58,17 @@ export default function Detalles() {
     if( parseFloat(tarjeta.SaldoDisponible) < parseFloat(total)  ) setDisponible(true)
 } 
   useEffect( () => {
+    //mostrarUltimosDigitosTarjeta
+    let resultado = "";
+    const cadena = tarjeta?.Tarjeta ?? "";
+    for (let i = 0; i < cadena.length; i++) 
+    {
+        resultado += cadena[i];
+          if ((i + 1) % 4 === 0) 
+          {
+              resultado += " ";
+          }
+    }
     agregarComision()
   } , [])
 
@@ -104,17 +113,17 @@ export default function Detalles() {
                 <Table
                      color={'#FFFFFF'}
                      titulo={`Monto a transferir:`}
-                     info={` $${tranfereciaDatosExitoso?.Monto ?? "no se encontro"}`}
+                     info={` $${ tranfereciaDatosExitoso?.Monto ?? "no se encontro"}`}
                 />
                 <Table
                      color={'#EDEEF1'}
                      titulo={`Comisión ${comision}%:`}
-                     info={`$${data?.Comision ?? "no se encontro"} `}
+                     info={`$ ${data?.Comision ?? "no se encontro"} `}
                 />
                 <Table
                      color={'#FFF'}
                      titulo={`Iva comisión  ${ivaPorcentaje}%:`}
-                     info={` $${parseFloat(data?.IvaComision) ?? "no se encontro"}`}
+                     info={`$ ${parseFloat(data?.IvaComision) ?? "no se encontro"}`}
                 />
                 <Table
                      color={'#EDEEF1'}
@@ -142,7 +151,7 @@ export default function Detalles() {
                 <Table
                      color={'#EDEEF1'}
                      titulo={`Titular:`}
-                     info={`${tranfereciaDatosExitoso.NombreBeneficiario}`}
+                     info={`${tranferencia?.alias}`}
                 />
                  <Table
                      color={'#FFF'}
@@ -152,7 +161,8 @@ export default function Detalles() {
                  <Table
                      color={'#EDEEF1'}
                      titulo={`Clabe:`}
-                     info={`${mostrarUltimosDigitosTarjeta(tranferencia.clabe)}`}
+                     colorTextTitle={`#757474`}
+                     info={`${ SepararDigitos(tranferencia.clabe)}`}
                 />
                  <Table
                      color={'#FFF'}
@@ -177,7 +187,7 @@ export default function Detalles() {
                 <Table
                      color={'#EDEEF1'}
                      titulo={`Alias:`}
-                     info={`${tarjeta?.Nombre}  ${tarjeta?.ApellidoPaterno ?? "no se encontro"}`}
+                     info={`${tarjeta?.Nombre}  ${tarjeta?.ApellidoPaterno ?? "no se encontro"} ${tarjeta?.ApellidoMaterno ?? "no se encontro"}`}
                 />
                  <Table
                      color={'#FFF'}
@@ -187,7 +197,7 @@ export default function Detalles() {
                  <Table
                      color={'#EDEEF1'}
                      titulo={`Tarjeta:`}
-                     info={`${tarjeta?.Tarjeta ?? "no se encontro"}`}
+                     info={`${ mostrarUltimosDigitosTarjeta(tarjeta?.Tarjeta ?? "no se encontro" )}`}
                 />
                 <View
                     style={{
@@ -205,8 +215,11 @@ export default function Detalles() {
                         width={170}
                         height={40}
                         evento={()=> {
+                            setTranferencia({
+                                monto:'0',
+                            })
                             navigation.navigate("Tranferencia")
-                            setTranferencia({})
+                            
                         }}
                     />
                 </View>

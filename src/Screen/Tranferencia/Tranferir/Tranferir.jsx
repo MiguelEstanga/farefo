@@ -3,7 +3,7 @@ import Titulo from "../../../component/Titulo";
 import InputText from "../../../component/InputText";
 import Btn from "../../../component/Btn";
 import { useNavigation } from "@react-navigation/native";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { TranferenciaContext } from "../../../context/Tranferencia";
 import { ModalAlert } from "../../../component/Modal";
 
@@ -12,12 +12,14 @@ export default function Tranferir()
     const [alert , setAlert] = useState(false)
     const {tranferencia , setTranferencia } =useContext(TranferenciaContext)
     const navegacion = useNavigation()
+
+    useEffect(()=> {
+
+    } , [tranferencia])
     const handle_navegacion = ()=>{
         if(tranferencia?.nombre && tranferencia?.clabe && tranferencia?.alias){
          // navegacion.navigate("Monto")
-           
-              navegacion.navigate("Monto")
-            
+              navegacion.navigate("Monto") 
         }
         else {
           setAlert(true)
@@ -36,7 +38,7 @@ export default function Tranferir()
       <View  style={{ height:300 , alignItems:"center" , marginTop:30}} >
         <View style={style.input}>
           <InputText 
-
+             value={tranferencia?.clabe ?? ''}
             number={true}
             longitud={18}
             label={"Clabe"} 
@@ -48,6 +50,7 @@ export default function Tranferir()
         </View>
         <View style={style.input}>
           <InputText 
+             value={tranferencia?.nombre ?? ''}
             label={"Nombre del contacto"} 
             eventoText={ (nombre) => { setTranferencia({...tranferencia , nombre:nombre}) }}
             password={false}
@@ -56,6 +59,7 @@ export default function Tranferir()
         </View>
         <View style={style.input}>
           <InputText 
+            value={tranferencia?.alias ?? ''}
             label={"Alias"} 
             eventoText={(alias) => { setTranferencia({...tranferencia , alias:alias}) }}
             password={false}

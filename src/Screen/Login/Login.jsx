@@ -236,6 +236,7 @@ function Login() {
                     <InputText
                       label={"Teléfono"}
                       subtitulo={true}
+                      value={usuario}
                       textSubtitulo={
                         "Captura el teléfono con el que se dio de alta tu cuenta "
                       }
@@ -251,6 +252,7 @@ function Login() {
                       <InputText
                         label={"Contraseña"}
                         subtitulo={false}
+                        value={password}
                         password={true}
                         initPassword={true}
                         eventoText={setPassword}
